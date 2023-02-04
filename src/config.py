@@ -17,7 +17,7 @@ pygame.display.set_caption("Mayham game boyz")
 bg = (0, 255, 255)
 font = pygame.font.Font("freesansbold.ttf", 30)
 
-
+peashooterRight = "src/media/peashooter.png"
 
 """
 * Controls
