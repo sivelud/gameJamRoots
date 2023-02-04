@@ -6,7 +6,7 @@ def engine():
 
     board = GameBoard()
     board.placePlant("d2")
-    cursorImage = cursorImageClass()
+    
 
     """ 
     enemies.add(Enemy(v2(0,270+45), 0))
@@ -73,7 +73,7 @@ def engine():
                 board.newLevel()
                 board.enemySpawns()
                 
-            board.mouseImage(cursorImage)
+            board.mouseImage()
 
             for sprites in [plants, shots, enemies,cursorGroup]:
                 sprites.update()

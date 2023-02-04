@@ -22,6 +22,14 @@ peashooterRight = "src/media/peashooterR.png"
 peashooterLeft = "src/media/peashooterL.png"
 peashooterUp = "src/media/peashooterU.png"
 peashooterDown = "src/media/peashooterD.png"
+peashooterShop = "src/media/peashooterShop.png"
+
+dualshotRight = "src/media/dualshotR.png"
+dualshotLeft = "src/media/dualshotL.png"
+dualshotUp = "src/media/dualshotU.png"
+dualshotDown = "src/media/dualshotD.png"
+dualshotShop = "src/media/dualshotShop.png"
+
 projectile_img = "src/media/shot_grey_small.png"
 
 enemies = pygame.sprite.Group()
@@ -30,7 +38,7 @@ shots = pygame.sprite.Group()
 cursorGroup = pygame.sprite.Group()
 
 
-shopitemsize = 45
+shopitemsize = 70
 shopOffset = 3
 shopitemY = 40
 
@@ -52,7 +60,7 @@ health  = 1
 
 money_per_kill = 2
 
-money = 10
+money = 100
 
 
 possibleSpawn = {
