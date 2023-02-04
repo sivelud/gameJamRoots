@@ -29,31 +29,21 @@ plants = pygame.sprite.Group()
 shots = pygame.sprite.Group()
 cursorGroup = pygame.sprite.Group()
 
-
 shopitemsize = 45
 shopOffset = 3
 shopitemY = 40
 
-
-health = 1
-
-
-
 peashooterCost = 10
-
+farmCost = 50
 dualshotCost = 25
 
 font = pygame.font.Font("freesansbold.ttf", 30)
 game_over_font = pygame.font.Font("freesansbold.ttf", 90)
 moneyPlacement = (850, 50)
 
-
-health  = 1
-
-money_per_kill = 2
-
+health  = 100
+money_per_kill = 50
 money = 10
-
 
 possibleSpawn = {
     0: [copy.copy(v2(0,270+45)), copy.copy(v2(0,360+45)), copy.copy(v2(0,450+45)), copy.copy(v2(0,540+45))], 

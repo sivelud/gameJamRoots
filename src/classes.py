@@ -54,6 +54,20 @@ class DualShot(Plant):
         shots.add(Projectile(copy.copy(self.pos + v2(45,45)), copy.copy(self.listDirectionVectors[(2+self.numberOfTimesClicked)%4])))
         self.updatesSinceShot = 0
 
+class Farm(Plant):
+    def __init__(self, pos):
+        super().__init__(pos)
+        self.shotsCounter = 0
+        self.name = "farm"
+
+    def shoot(self):
+        self.shotsCounter += 1
+        print("hey")
+        if self.shotsCounter >= 15:
+            cn.money += 5
+            self.shotsCounter = 0
+        self.updatesSinceShot = 0
+
 class ShopItem(Parent):
     def __init__(self, pos, image):
         super().__init__()
@@ -85,7 +99,6 @@ class Projectile(Parent):
 
     def update(self):
         self.move()
-        self.life +=1
         self.execute()
 
     def execute(self):
@@ -153,7 +166,7 @@ def coordinates_to_key(pos):
         if shopitemplacement(2) <= x < shopitemplacement(2)+shopitemsize:
             key = "dualshot"
         if shopitemplacement(3) <= x < shopitemplacement(3)+shopitemsize:
-            key = "peashooter3"
+            key = "farm"
 
 
 
@@ -184,7 +197,7 @@ class GameBoard():
             # Shop:
             "peashooter":[ShopItem(v2(shopitemplacement(1), shopitemY), pygame.transform.scale(pygame.image.load(peashooterRight),(shopitemsize,shopitemsize)))],
             "dualshot":[ShopItem(v2(shopitemplacement(2), shopitemY), pygame.transform.scale(pygame.image.load(peashooterLeft),(shopitemsize,shopitemsize)))],
-            "peashooter3":[ShopItem(v2(shopitemplacement(3), shopitemY), pygame.transform.scale(pygame.image.load(peashooterRight),(shopitemsize,shopitemsize)))],
+            "farm":[ShopItem(v2(shopitemplacement(3), shopitemY), pygame.transform.scale(pygame.image.load(peashooterRight),(shopitemsize,shopitemsize)))],
 
         }
         self.level = 0
@@ -192,7 +205,7 @@ class GameBoard():
         self.enemiesToBeSpawned = 0
         plants.add(self.mapTiles["peashooter"][0])
         plants.add(self.mapTiles["dualshot"][0])
-        plants.add(self.mapTiles["peashooter3"][0])
+        plants.add(self.mapTiles["farm"][0])
 
     def click_tile(self, mousePosClick):
         tile = coordinates_to_key(mousePosClick)
@@ -219,12 +232,12 @@ class GameBoard():
                     if tile == "peashooter":
                         if cn.money >= cn.peashooterCost: # Highlights peashooter only if you can afford it
                             self.mouseHolding = tile
-                    if tile == "dualshot":
+                    elif tile == "dualshot":
                         if cn.money >= cn.dualshotCost:
                             self.mouseHolding = tile
-
-
-
+                    elif tile == "farm":
+                        if cn.money >= cn.farmCost:
+                            self.mouseHolding = tile
         
     def placePlant(self, key):
         pos = self.mapTiles[key][1]
@@ -238,7 +251,7 @@ class GameBoard():
 
 
         if self.mouseHolding == "peashooter":
-            if cn.money < Peashooter(v2(50,50)).cost:
+            if cn.money < peashooterCost:
                 self.mouseHolding = None
                 return
             plant = Peashooter(posV2)
@@ -246,10 +259,9 @@ class GameBoard():
                 self.mapTiles[key][0].kill()
             self.mapTiles[key][0] = plant
             plants.add(plant)
-            cn.money = cn.money - Peashooter(v2(50,50)).cost
-
+            cn.money = cn.money - peashooterCost
         if self.mouseHolding == "dualshot":
-            if cn.money < DualShot(v2(50,50)).cost:
+            if cn.money < dualshotCost:
                 self.mouseHolding = None
                 return
             plant = DualShot(posV2)
@@ -257,18 +269,18 @@ class GameBoard():
                 self.mapTiles[key][0].kill()
             self.mapTiles[key][0] = plant
             plants.add(plant)
-            cn.money = cn.money - DualShot(v2(50,50)).cost
+            cn.money = cn.money - dualshotCost
         
-        if self.mouseHolding == "peashooter3":
-            if money < peashooterCost:
+        if self.mouseHolding == "farm":
+            if cn.money < farmCost:
                 self.mouseHolding = None
                 return
-            plant = Peashooter(posV2)
+            plant = Farm(posV2)
             if self.mapTiles[key][0] != None:
                 self.mapTiles[key][0].kill()
             self.mapTiles[key][0] = plant
             plants.add(plant)
-            money = money - peashooterCost
+            cn.money = cn.money - farmCost
 
     def mouseImage(self, cursorImage):
         if self.mouseHolding != None:
@@ -279,7 +291,6 @@ class GameBoard():
             cursorGroup.add(cursorImage)
         else:
             cursorImage.kill()
-
 
     def writeMoney(self):
         txt = "$"
