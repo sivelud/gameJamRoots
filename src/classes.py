@@ -46,6 +46,9 @@ class ShopItem(Parent):
     def clicked(self):
         return 1
 
+    def shoot(self):
+        pass
+
 
 
 class Projectile(Parent):
