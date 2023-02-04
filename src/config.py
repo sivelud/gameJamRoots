@@ -38,7 +38,6 @@ peashooterCost = 10
 
 font = pygame.font.Font("freesansbold.ttf", 30)
 moneyPlacement = (850, 50)
-
 money = 25
 
 

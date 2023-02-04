@@ -39,6 +39,17 @@ class Plant(Parent):
 class Peashooter(Plant):
     def __init__(self, pos):
         super().__init__(pos)
+        self.cost = 10
+
+class DualShot(Plant):
+    def __init__(self, pos):
+        super().__init__(pos)
+        self.cost = 25
+
+    def shoot(self):
+        shots.add(Projectile(copy.copy(self.pos + v2(45,45)), copy.copy(self.listDirectionVectors[self.numberOfTimesClicked%4])))
+        shots.add(Projectile(copy.copy(self.pos + v2(45,45)), copy.copy(self.listDirectionVectors[(2+self.numberOfTimesClicked)%4])))
+        self.updatesSinceShot = 0
 
 class ShopItem(Parent):
     def __init__(self, pos, image):
@@ -54,10 +65,6 @@ class ShopItem(Parent):
 
     def shoot(self):
         pass
-
-            
-            
-
 
 class Projectile(Parent):
     def __init__(self, pos, dir):
@@ -141,7 +148,7 @@ def coordinates_to_key(pos):
         if shopitemplacement(1) <= x < shopitemplacement(1)+shopitemsize:
             key = "peashooter1"
         if shopitemplacement(2) <= x < shopitemplacement(2)+shopitemsize:
-            key = "peashooter2"
+            key = "dualshot"
         if shopitemplacement(3) <= x < shopitemplacement(3)+shopitemsize:
             key = "peashooter3"
 
@@ -173,7 +180,7 @@ class GameBoard():
 
             # Shop:
             "peashooter1":[ShopItem(v2(shopitemplacement(1), shopitemY), pygame.transform.scale(pygame.image.load(peashooterRight),(shopitemsize,shopitemsize)))],
-            "peashooter2":[ShopItem(v2(shopitemplacement(2), shopitemY), pygame.transform.scale(pygame.image.load(peashooterRight),(shopitemsize,shopitemsize)))],
+            "dualshot":[ShopItem(v2(shopitemplacement(2), shopitemY), pygame.transform.scale(pygame.image.load(peashooterLeft),(shopitemsize,shopitemsize)))],
             "peashooter3":[ShopItem(v2(shopitemplacement(3), shopitemY), pygame.transform.scale(pygame.image.load(peashooterRight),(shopitemsize,shopitemsize)))],
 
         }
@@ -181,7 +188,7 @@ class GameBoard():
         self.numOfEnemies = 0
         self.enemiesToBeSpawned = 0
         plants.add(self.mapTiles["peashooter1"][0])
-        plants.add(self.mapTiles["peashooter2"][0])
+        plants.add(self.mapTiles["dualshot"][0])
         plants.add(self.mapTiles["peashooter3"][0])
 
     def click_tile(self, mousePosClick):
@@ -214,7 +221,7 @@ class GameBoard():
         global money
 
         if self.mouseHolding == "peashooter1":
-            if money < peashooterCost:
+            if money < Peashooter(v2(50,50)).cost:
                 self.mouseHolding = None
                 return
             plant = Peashooter(posV2)
@@ -222,18 +229,18 @@ class GameBoard():
                 self.mapTiles[key][0].kill()
             self.mapTiles[key][0] = plant
             plants.add(plant)
-            money = money - peashooterCost
+            money = money - Peashooter(v2(50,50)).cost
 
-        if self.mouseHolding == "peashooter2":
-            if money < peashooterCost:
+        if self.mouseHolding == "dualshot":
+            if money < DualShot(v2(50,50)).cost:
                 self.mouseHolding = None
                 return
-            plant = Peashooter(posV2)
+            plant = DualShot(posV2)
             if self.mapTiles[key][0] != None:
                 self.mapTiles[key][0].kill()
             self.mapTiles[key][0] = plant
             plants.add(plant)
-            money = money - peashooterCost
+            money = money - DualShot(v2(50,50)).cost
         
         if self.mouseHolding == "peashooter3":
             if money < peashooterCost:
