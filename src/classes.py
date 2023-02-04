@@ -36,6 +36,19 @@ class Peashooter(Plant):
     def __init__(self, pos):
         super().__init__(pos)
 
+class ShopItem(Parent):
+    def __init__(self, pos, image):
+        super().__init__()
+        self.pos = pos
+        self.image = image
+        self.rect = self.image.get_rect()
+        self.rect.topleft = [self.pos.x, self.pos.y]
+
+    def clicked(self):
+        return 1
+
+
+
 class Projectile(Parent):
 
     def __init__(self, pos, dir):
@@ -56,6 +69,9 @@ class Projectile(Parent):
         """
         self.pos += self.dire * 25
         self.rect.center = [self.pos.x, self.pos.y]
+
+
+
 
 """
 * Input: touple (x, y)
@@ -108,8 +124,13 @@ def coordinates_to_key(pos):
         if 540 <= y < 630:
             key += "1"
 
-    if len(key) == 2:
+    if 90 <= x <= 180:
+        if 90 <= y <= 190:
+            key = "peashooter"
+
+    if len(key) > 1:
         return key
+
     return None
 
 
@@ -118,6 +139,8 @@ def coordinates_to_key(pos):
 """
 class GameBoard():
     def __init__(self):
+        self.mouseHolding = None
+
         """
         [0] = Tower tile
         [1] = Position. Topleft Corner tuple (x,y)
@@ -126,17 +149,33 @@ class GameBoard():
             "a4":[None, (270,270)], "b4":[None, (360,270)], "c4":[None, (450, 270)], "d4": [None, (540, 270)],
             "a3":[None, (270, 360)], "b3":[None, (360, 360)], "c3":[None, (450, 360)], "d3":[None, (540, 360)],
             "a2":[None, (270, 450)], "b2":[None, (360, 450)], "c2":[None, (450, 450)], "d2":[None, (540, 450)],
-            "a1":[None, (270, 540)], "b1":[None, (360, 540)], "c1":[None, (450, 540)], "d1":[None,540, 540]
+            "a1":[None, (270, 540)], "b1":[None, (360, 540)], "c1":[None, (450, 540)], "d1":[None,(540, 540)],
+            "peashooter":[ShopItem(v2(90,90), pygame.transform.scale(pygame.image.load(peashooterRight),(90,90))), (90,90)]
         }
+        plants.add(self.mapTiles["peashooter"][0])
 
     def click_tile(self, mousePosClick):
         tile = coordinates_to_key(mousePosClick)
-        print("tile clicked = ", tile)
-        if self.mapTiles[tile][0] != None:
-            self.mapTiles[tile][0].clicked()
-            return
-        print("Tile is empty")
 
+        # If the mouse is holding something: If clicked in one of the tiles, place that something. If clicked outside of clickable tile, clear mouse holding.
+        if self.mouseHolding != None:
+            if tile != None:
+                if len(tile) <= 2:
+                    self.placePlant(tile)
+                    self.mouseHolding = None
+                    return
+            if tile == None:
+                self.mouseHolding = None
+                return
+
+
+        if self.mapTiles[tile] != None:
+            if self.mapTiles[tile][0] != None:
+                checker = self.mapTiles[tile][0].clicked()
+                if checker != None:
+                    self.mouseHolding = copy.copy(self.mapTiles[tile][0])
+
+        
     def placePlant(self, key):
         pos = self.mapTiles[key][1]
         posV2 = v2(pos[0], pos[1])
@@ -145,12 +184,3 @@ class GameBoard():
             self.mapTiles[key][0].kill()
         self.mapTiles[key][0] = plant
         plants.add(plant)
-
-
-        
-    
-        
-        
-
-
-
