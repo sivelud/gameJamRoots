@@ -317,9 +317,16 @@ class GameBoard():
     def enemySpawns(self):
         if self.numOfEnemies < self.enemiesToBeSpawned:
             if r.uniform(0,1) > 0.8:
-                rint = r.randint(0,3)
-                enemies.add(Enemy(copy.copy(possibleSpawn[rint][r.randint(0,3)]), rint))
-                self.numOfEnemies += 1
+                if r.uniform(0,10) - self.level*0.1 > 0.5:   
+                    print("best enemy")
+                    rint = r.randint(0,3)
+                    enemies.add(EnemyBest(copy.copy(possibleSpawn[rint][r.randint(0,3)]), rint))
+                    self.numOfEnemies += 1
+
+                else:
+                    rint = r.randint(0,3)
+                    enemies.add(Enemy(copy.copy(possibleSpawn[rint][r.randint(0,3)]), rint))
+                    self.numOfEnemies += 1
 
     def newLevel(self):
         if self.numOfEnemies == self.enemiesToBeSpawned and len(enemies) == 0:
@@ -368,7 +375,15 @@ class Enemy(Parent):
 
             self.kill()
 
+class EnemyBetter(Enemy):
+    def __init__(self, pos, dire):
+        super().__init__(pos, dire)
+        self.health = 5
 
+class EnemyBest(Enemy):
+    def __init__(self, pos, dire):
+        super().__init__(pos, dire)
+        self.health = 10
     
 class cursorImageClass(Parent):
     def __init__(self):
