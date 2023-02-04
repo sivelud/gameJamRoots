@@ -27,6 +27,8 @@ projectile_img = "src/media/shot_grey_small.png"
 enemies = pygame.sprite.Group()
 plants = pygame.sprite.Group()
 shots = pygame.sprite.Group()
+cursorGroup = pygame.sprite.Group()
+
 
 shopitemsize = 45
 shopOffset = 3

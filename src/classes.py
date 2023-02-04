@@ -177,7 +177,6 @@ class GameBoard():
             "peashooter3":[ShopItem(v2(shopitemplacement(3), shopitemY), pygame.transform.scale(pygame.image.load(peashooterRight),(shopitemsize,shopitemsize)))],
 
         }
-        plants.add(self.mapTiles["peashooter"][0])
         self.level = 0
         self.numOfEnemies = 0
         self.enemiesToBeSpawned = 0
@@ -247,6 +246,16 @@ class GameBoard():
             plants.add(plant)
             money = money - peashooterCost
 
+    def mouseImage(self, cursorImage):
+        if self.mouseHolding != None:
+            x,y = pygame.mouse.get_pos()
+            #cursorImage = cursorImageClass()
+            cursorImage.rect = cursorImage.image.get_rect()
+            cursorImage.rect.center = [x, y]
+            cursorGroup.add(cursorImage)
+        else:
+            cursorImage.kill()
+
 
     def writeMoney(self):
         txt = "$"
@@ -305,4 +314,7 @@ class Enemy(Parent):
         if self.pos.x > 975 or self.pos.x < -25 or self.pos.y > 950 or self.pos.y < -25:
             self.kill()
     
-        
+class cursorImageClass(Parent):
+    def __init__(self):
+        super().__init__()
+        self.image = pygame.transform.scale(pygame.image.load(peashooterRight),(60,60))
