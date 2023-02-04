@@ -1,4 +1,6 @@
 from classes import *
+import config as cn
+
 
 def engine():
 
@@ -46,8 +48,10 @@ def engine():
 
         keys = pygame.key.get_pressed()
 
-        
-        
+    
+       
+        if cn.health < 1:
+            game_loop = False
 
         if game_loop:
             # Fills screen with bg color
