@@ -1,4 +1,5 @@
 from config import *
+import config as cn
 import random as r
 
 class Parent(pygame.sprite.Sprite):
@@ -318,8 +319,16 @@ class Enemy(Parent):
             self.kill()
         
     def enemyCrossedLanes(self):
+        
         if self.pos.x > 975 or self.pos.x < -25 or self.pos.y > 950 or self.pos.y < -25:
+
+            cn.health -= 1
+
+            #print("in func:", health)
+
             self.kill()
+
+
     
 class cursorImageClass(Parent):
     def __init__(self):
