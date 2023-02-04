@@ -1,6 +1,8 @@
 import pygame
 from pygame import Vector2 as v2
 import time
+import copy
+
 pygame.init()
 
 """
@@ -28,11 +30,12 @@ shots = pygame.sprite.Group()
 
 
 possibleSpawn = {
-    0: [v2(0,270+45), v2(0,360+45), v2(0,450+45), v2(0,540+45)], 
-    1: [v2(270+45, 0), v2((360+45, 0)), v2((450+45, 0)), v2((540+45, 0))],
-    2: [v2(900,270+45), v2(900,360+45), v2(900,450+45), v2(900,540+45)],
-    3: [v2((360+45, 900)), v2((270+45, 900)), v2((450+45, 900)), v2((540+45, 900))]
+    0: [copy.copy(v2(0,270+45)), copy.copy(v2(0,360+45)), copy.copy(v2(0,450+45)), copy.copy(v2(0,540+45))], 
+    1: [copy.copy(v2(270+45, 0)), copy.copy(v2(360+45, 0)), copy.copy(v2(450+45, 0)), copy.copy(v2(540+45, 0))],
+    2: [copy.copy(v2(900,270+45)), copy.copy(v2(900,360+45)), copy.copy(v2(900,450+45)), copy.copy(v2(900,540+45))],
+    3: [copy.copy(v2(360+45, 900)), copy.copy(v2(270+45, 900)), copy.copy(v2(450+45, 900)), copy.copy(v2(540+45, 900))]
 }
+
 """
 * Controls
 """

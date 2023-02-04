@@ -24,7 +24,6 @@ def engine():
     enemies.add(Enemy(v2((540+45, 900)),3))
     """
 
-    enemies.add(Enemy(possibleSpawn[0][0], 0))
 
     """
     * Main loop
@@ -58,17 +57,19 @@ def engine():
             """
             Updates and draws the sprites from the sprite groups. 
             """
-            if shootTiming % program_speed == 0:
-                for DaPlants in plants:
+        
+            for DaPlants in plants:
+                if DaPlants.updatesSinceShot == 60:
                     DaPlants.shoot()
+            if shootTiming % 30 == 0:
+                board.newLevel()
+                board.enemySpawns()
+                
 
             for sprites in [plants, shots, enemies]:
                 sprites.update()
                 sprites.draw(screen)
 
-
-            # Writes score and score nr
-            # Draws all the above on to the screen
             pygame.display.flip()
 
         shootTiming += 1

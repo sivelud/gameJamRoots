@@ -1,5 +1,5 @@
 from config import *
-import copy
+import random as r
 
 class Parent(pygame.sprite.Sprite):
     def __init__(self):
@@ -15,6 +15,7 @@ class Plant(Parent):
         self.numberOfTimesClicked = 1
         self.rect = self.image.get_rect()
         self.rect.topleft = [self.pos.x, self.pos.y]
+        self.updatesSinceShot = 0
 
 
     def rotateImage(self):
@@ -26,11 +27,15 @@ class Plant(Parent):
         
     def shoot(self):
         shots.add(Projectile(copy.copy(self.pos + v2(45,45)), copy.copy(self.listDirectionVectors[self.numberOfTimesClicked%4])))
+        self.updatesSinceShot = 0
 
     def clicked(self):
         self.rotateImage()
         #upgrade()?
 
+    def update(self):
+        self.updatesSinceShot +=1
+        
 class Peashooter(Plant):
     def __init__(self, pos):
         super().__init__(pos)
@@ -42,6 +47,7 @@ class ShopItem(Parent):
         self.image = image
         self.rect = self.image.get_rect()
         self.rect.topleft = [self.pos.x, self.pos.y]
+        self.updatesSinceShot = 0
 
     def clicked(self):
         return 1
@@ -157,6 +163,9 @@ class GameBoard():
             "peashooter":[ShopItem(v2(90,90), pygame.transform.scale(pygame.image.load(peashooterRight),(90,90))), (90,90)]
         }
         plants.add(self.mapTiles["peashooter"][0])
+        self.level = 0
+        self.numOfEnemies = 0
+        self.enemiesToBeSpawned = 0
 
     def click_tile(self, mousePosClick):
         tile = coordinates_to_key(mousePosClick)
@@ -191,6 +200,20 @@ class GameBoard():
         self.mapTiles[key][0] = plant
         plants.add(plant)
 
+    def enemySpawns(self):
+        if self.numOfEnemies < self.enemiesToBeSpawned:
+            if r.uniform(0,1) > 0.8:
+                rint = r.randint(0,3)
+                enemies.add(Enemy(copy.copy(possibleSpawn[rint][r.randint(0,3)]), rint))
+                self.numOfEnemies += 1
+
+    def newLevel(self):
+        if self.numOfEnemies == self.enemiesToBeSpawned and len(enemies) == 0:
+            self.level +=1
+            self.enemiesToBeSpawned = round(self.level**(1.5))
+            self.numOfEnemies = 0
+            print(self.level)
+
 
 class Enemy(Parent):
     def __init__(self, pos, dire):
@@ -198,7 +221,7 @@ class Enemy(Parent):
         self.pos = pos
         self.dire = dire
         self.imgList = [pygame.transform.scale(pygame.image.load(peashooterRight),(90,90)),pygame.transform.scale(pygame.image.load(peashooterDown),(90,90)),pygame.transform.scale(pygame.image.load(peashooterLeft),(90,90)),pygame.transform.scale(pygame.image.load(peashooterUp),(90,90))]
-        self.listDirectionVectors = [v2(1,0),v2(0,1),v2(-1,0),v2(0,-1)]
+        self.listDirectionVectors = [v2(0.5,0),v2(0,0.5),v2(-0.5,0),v2(0,-0.5)]
         self.image = self.imgList[dire]
         self.rect = self.image.get_rect()
         self.rect.center = [self.pos.x, self.pos.y]
@@ -211,6 +234,7 @@ class Enemy(Parent):
     def update(self):
         self.move()
         self.collision()
+        self.enemyCrossedLanes()
 
     def collision(self):
         for _ in shots:
@@ -219,9 +243,8 @@ class Enemy(Parent):
         if self.health <= 0:
             self.kill()
         
+    def enemyCrossedLanes(self):
+        if self.pos.x > 975 or self.pos.x < -25 or self.pos.y > 950 or self.pos.y < -25:
+            self.kill()
     
         
-        
-
-
-
