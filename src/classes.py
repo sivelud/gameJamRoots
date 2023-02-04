@@ -29,7 +29,8 @@ class Plant(Parent):
 
 
     def clicked(self):
-        pass
+        self.rotateImage()
+        #upgrade()?
 
 class Peashooter(Plant):
     def __init__(self, pos):
@@ -132,9 +133,18 @@ class GameBoard():
         tile = coordinates_to_key(mousePosClick)
         print("tile clicked = ", tile)
         if self.mapTiles[tile][0] != None:
-            self.mapTiles[tile].clicked()
+            self.mapTiles[tile][0].clicked()
             return
         print("Tile is empty")
+
+    def placePlant(self, key):
+        pos = self.mapTiles[key][1]
+        posV2 = v2(pos[0], pos[1])
+        plant = Peashooter(posV2)
+        if self.mapTiles[key][0] != None:
+            self.mapTiles[key][0].kill()
+        self.mapTiles[key][0] = plant
+        plants.add(plant)
 
 
         

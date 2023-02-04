@@ -2,11 +2,10 @@ from classes import *
 
 def engine():
 
-    plant = Peashooter(v2(500,500))
-    plants = pygame.sprite.Group()
-    plants.add(plant)
-
     board = GameBoard()
+    
+    board.placePlant("a4")
+
 
     """
     * Main loop
@@ -53,7 +52,6 @@ def engine():
             plants.update()
             plants.draw(screen)
             #plant.rotateImage()
-            plant.shoot()
             shots.update()
             shots.draw(screen)
 
