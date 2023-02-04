@@ -177,7 +177,6 @@ class GameBoard():
             "peashooter3":[ShopItem(v2(shopitemplacement(3), shopitemY), pygame.transform.scale(pygame.image.load(peashooterRight),(shopitemsize,shopitemsize)))],
 
         }
-        plants.add(self.mapTiles["peashooter"][0])
         self.level = 0
         self.numOfEnemies = 0
         self.enemiesToBeSpawned = 0
@@ -304,5 +303,6 @@ class Enemy(Parent):
     def enemyCrossedLanes(self):
         if self.pos.x > 975 or self.pos.x < -25 or self.pos.y > 950 or self.pos.y < -25:
             self.kill()
+            print(health)
     
         

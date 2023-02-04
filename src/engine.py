@@ -46,6 +46,9 @@ def engine():
 
         keys = pygame.key.get_pressed()
 
+        
+        
+
         if game_loop:
             # Fills screen with bg color
 
@@ -77,6 +80,18 @@ def engine():
             # Draws all the above on to the screen
             pygame.display.flip()
 
+        if not game_loop:
+            txt = "GAME OVER"
+
+            game_over_txt = game_over_font.render(txt, True, (255, 50, 50))
+
+            textRect1 = game_over_txt.get_rect()
+            textRect1.center = (screen_w/2,screen_h/2)
+            screen.blit(game_over_txt, textRect1)
+
+            pygame.display.flip()
+
         shootTiming += 1
         # Limits program speed
         klokke.tick(program_speed)
+        

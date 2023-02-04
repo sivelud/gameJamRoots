@@ -35,9 +35,11 @@ shopitemY = 40
 peashooterCost = 10
 
 font = pygame.font.Font("freesansbold.ttf", 30)
+game_over_font = pygame.font.Font("freesansbold.ttf", 90)
 moneyPlacement = (850, 50)
 
 money = 25
+health = 1
 
 
 
