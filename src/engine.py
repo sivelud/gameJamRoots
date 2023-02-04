@@ -2,6 +2,10 @@ from classes import *
 
 def engine():
 
+    plant = Peashooter((0,0))
+    plants = pygame.sprite.Group()
+    plants.add(plant)
+
     """
     * Main loop
     """
@@ -22,11 +26,14 @@ def engine():
             screen.fill(bg)
             # Gets keypressed array
             # Updates the players
+            
 
             """
             Updates and draws the sprites from the sprite groups. 
             """
-            
+            plants.draw(screen)
+            plant.rotateImage()
+
             # Writes score and score nr
             # Draws all the above on to the screen
             pygame.display.flip()
