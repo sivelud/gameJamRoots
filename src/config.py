@@ -28,6 +28,19 @@ enemies = pygame.sprite.Group()
 plants = pygame.sprite.Group()
 shots = pygame.sprite.Group()
 
+shopitemsize = 45
+shopOffset = 3
+shopitemY = 40
+
+peashooterCost = 10
+
+font = pygame.font.Font("freesansbold.ttf", 30)
+moneyPlacement = (850, 50)
+
+money = 25
+
+
+
 
 possibleSpawn = {
     0: [copy.copy(v2(0,270+45)), copy.copy(v2(0,360+45)), copy.copy(v2(0,450+45)), copy.copy(v2(0,540+45))], 

@@ -70,6 +70,11 @@ def engine():
                 sprites.update()
                 sprites.draw(screen)
 
+            board.writeMoney()
+
+
+            # Writes score and score nr
+            # Draws all the above on to the screen
             pygame.display.flip()
 
         shootTiming += 1
