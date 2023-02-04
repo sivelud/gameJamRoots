@@ -160,7 +160,9 @@ class GameBoard():
 
     def click_tile(self, mousePosClick):
         tile = coordinates_to_key(mousePosClick)
-
+        if tile == None:
+            self.mouseHolding = None
+            return
         # If the mouse is holding something: If clicked in one of the tiles, place that something. If clicked outside of clickable tile, clear mouse holding.
         if self.mouseHolding != None:
             if tile != None:
