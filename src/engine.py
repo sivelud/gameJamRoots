@@ -52,7 +52,7 @@ def engine():
             """
             plants.update()
             plants.draw(screen)
-            plant.rotateImage()
+            #plant.rotateImage()
             plant.shoot()
             shots.update()
             shots.draw(screen)
