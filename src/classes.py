@@ -206,8 +206,7 @@ class GameBoard():
             # Shop:
             "peashooter":[ShopItem(v2(shopitemplacement(1), shopitemY), pygame.transform.scale(pygame.image.load(peashooterShop),(shopitemsize,shopitemsize)))],
             "dualshot":[ShopItem(v2(shopitemplacement(2), shopitemY), pygame.transform.scale(pygame.image.load(dualshotShop),(shopitemsize,shopitemsize)))],
-            "peashooter3":[ShopItem(v2(shopitemplacement(3), shopitemY), pygame.transform.scale(pygame.image.load(peashooterRight),(shopitemsize,shopitemsize)))],
-
+            "farm":[ShopItem(v2(shopitemplacement(3), shopitemY), pygame.transform.scale(pygame.image.load(peashooterRight),(shopitemsize,shopitemsize)))],
         }
         self.level = 0
         self.numOfEnemies = 0
