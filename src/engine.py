@@ -3,7 +3,8 @@ from classes import *
 def engine():
 
     board = GameBoard()
-    board.placePlant("d4")
+    board.placePlant("d2")
+    enemies.add(Enemy(v2(0,480), 0))
 
     """
     * Main loop
@@ -41,7 +42,7 @@ def engine():
                 for DaPlants in plants:
                     DaPlants.shoot()
 
-            for sprites in [plants, shots]:
+            for sprites in [plants, shots, enemies]:
                 sprites.update()
                 sprites.draw(screen)
 

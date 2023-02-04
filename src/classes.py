@@ -45,16 +45,12 @@ class Projectile(Parent):
         self.dire = dir
         self.life = 0
 
-    def update(self):
-        """
-            Updates the projectiles position. 
-
-            Parameters:
-            -----------
-            Key, sprites_platform, level_blocks are needed for the polymorphism to work. 
-        """
+    def move(self):
         self.pos += self.dire * 10
         self.rect.center = [self.pos.x, self.pos.y]
+
+    def update(self):
+        self.move()
         self.life +=1
         self.execute()
 
@@ -152,6 +148,32 @@ class GameBoard():
         plants.add(plant)
 
 
+class Enemy(Parent):
+    def __init__(self, pos, dire):
+        super().__init__()
+        self.pos = pos
+        self.dire = dire
+        self.imgList = [pygame.transform.scale(pygame.image.load(peashooterRight),(90,90)),pygame.transform.scale(pygame.image.load(peashooterDown),(90,90)),pygame.transform.scale(pygame.image.load(peashooterLeft),(90,90)),pygame.transform.scale(pygame.image.load(peashooterUp),(90,90))]
+        self.listDirectionVectors = [v2(1,0),v2(0,1),v2(-1,0),v2(0,-1)]
+        self.image = self.imgList[dire]
+        self.rect = self.image.get_rect()
+        self.rect.center = [self.pos.x, self.pos.y]
+        self.health = 3
+    
+    def move(self):
+        self.pos += self.listDirectionVectors[self.dire] 
+        self.rect.center = [self.pos.x, self.pos.y]  
+
+    def update(self):
+        self.move()
+        self.collision()
+
+    def collision(self):
+        for _ in shots:
+            if pygame.sprite.spritecollide(self, shots, True):
+                self.health -= 1
+        if self.health <= 0:
+            self.kill()
         
     
         

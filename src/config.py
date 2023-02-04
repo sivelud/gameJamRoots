@@ -24,6 +24,7 @@ projectile_img = "src/media/shot_grey_small.png"
 
 plants = pygame.sprite.Group()
 shots = pygame.sprite.Group()
+enemies = pygame.sprite.Group()
 
 """
 * Controls
