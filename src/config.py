@@ -62,7 +62,7 @@ health  = 1
 
 money_per_kill = 2
 
-money = 150
+money = 15
 
 
 possibleSpawn = {
