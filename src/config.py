@@ -26,6 +26,15 @@ enemies = pygame.sprite.Group()
 plants = pygame.sprite.Group()
 shots = pygame.sprite.Group()
 
+shopitemsize = 45
+shopOffset = 3
+shopitemY = 40
+
+
+scorePlacement = (800, 50)
+
+
+
 
 possibleSpawn = {'0': [v2(0,270+45),
     v2(0,270+45 + 90),

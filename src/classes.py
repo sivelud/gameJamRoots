@@ -75,7 +75,8 @@ class Projectile(Parent):
             self.kill()
 
 
-
+def shopitemplacement(nr):
+            return (shopitemsize*nr + shopOffset*nr)-30
 
 """
 * Input: touple (x, y)
@@ -128,9 +129,15 @@ def coordinates_to_key(pos):
         if 540 <= y < 630:
             key += "1"
 
-    if 90 <= x <= 180:
-        if 90 <= y <= 190:
-            key = "peashooter"
+    if shopitemY <= y < shopitemY+shopitemsize:
+        if shopitemplacement(1) <= x < shopitemplacement(1)+shopitemsize:
+            key = "peashooter1"
+        if shopitemplacement(2) <= x < shopitemplacement(2)+shopitemsize:
+            key = "peashooter2"
+        if shopitemplacement(3) <= x < shopitemplacement(3)+shopitemsize:
+            key = "peashooter3"
+
+
 
     if len(key) > 1:
         return key
@@ -150,13 +157,21 @@ class GameBoard():
         [1] = Position. Topleft Corner tuple (x,y)
         """
         self.mapTiles = {
+            # Centre:
             "a4":[None, (270,270)], "b4":[None, (360,270)], "c4":[None, (450, 270)], "d4": [None, (540, 270)],
             "a3":[None, (270, 360)], "b3":[None, (360, 360)], "c3":[None, (450, 360)], "d3":[None, (540, 360)],
             "a2":[None, (270, 450)], "b2":[None, (360, 450)], "c2":[None, (450, 450)], "d2":[None, (540, 450)],
             "a1":[None, (270, 540)], "b1":[None, (360, 540)], "c1":[None, (450, 540)], "d1":[None,(540, 540)],
-            "peashooter":[ShopItem(v2(90,90), pygame.transform.scale(pygame.image.load(peashooterRight),(90,90))), (90,90)]
+
+            # Shop:
+            "peashooter1":[ShopItem(v2(shopitemplacement(1), shopitemY), pygame.transform.scale(pygame.image.load(peashooterRight),(shopitemsize,shopitemsize)))],
+            "peashooter2":[ShopItem(v2(shopitemplacement(2), shopitemY), pygame.transform.scale(pygame.image.load(peashooterRight),(shopitemsize,shopitemsize)))],
+            "peashooter3":[ShopItem(v2(shopitemplacement(3), shopitemY), pygame.transform.scale(pygame.image.load(peashooterRight),(shopitemsize,shopitemsize)))],
+
         }
-        plants.add(self.mapTiles["peashooter"][0])
+        plants.add(self.mapTiles["peashooter1"][0])
+        plants.add(self.mapTiles["peashooter2"][0])
+        plants.add(self.mapTiles["peashooter3"][0])
 
     def click_tile(self, mousePosClick):
         tile = coordinates_to_key(mousePosClick)
