@@ -43,7 +43,7 @@ moneyPlacement = (850, 50)
 
 health  = 100
 money_per_kill = 50
-money = 10
+money = 100
 
 possibleSpawn = {
     0: [copy.copy(v2(0,270+45)), copy.copy(v2(0,360+45)), copy.copy(v2(0,450+45)), copy.copy(v2(0,540+45))], 
