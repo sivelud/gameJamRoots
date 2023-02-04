@@ -3,16 +3,14 @@ from classes import *
 def engine():
 
     board = GameBoard()
-
-    board.placePlant("a4")
-
-
+    board.placePlant("d4")
 
     """
     * Main loop
     """
     game_loop = True
     running = True
+    shootTiming = 0
 
     while running:
         # takes keypress input
@@ -28,37 +26,30 @@ def engine():
 
         keys = pygame.key.get_pressed()
 
-        
-
-        
-
-        
-
         if game_loop:
             # Fills screen with bg color
 
             bg = pygame.image.load("src/media/gridPlaceholderNumerated.png")
-
+            screen.fill((0,0,0))
             #INSIDE OF THE GAME LOOP
             screen.blit(bg, (0, 0))
-
-
-            # Gets keypressed array
-            # Updates the players
-            
 
             """
             Updates and draws the sprites from the sprite groups. 
             """
-            plants.update()
-            plants.draw(screen)
-            #plant.rotateImage()
-            shots.update()
-            shots.draw(screen)
+            if shootTiming % program_speed == 0:
+                for DaPlants in plants:
+                    DaPlants.shoot()
+
+            for sprites in [plants, shots]:
+                sprites.update()
+                sprites.draw(screen)
+
 
             # Writes score and score nr
             # Draws all the above on to the screen
             pygame.display.flip()
 
+        shootTiming += 1
         # Limits program speed
         klokke.tick(program_speed)

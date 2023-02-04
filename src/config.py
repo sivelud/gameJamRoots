@@ -23,7 +23,6 @@ peashooterDown = "src/media/peashooterD.png"
 projectile_img = "src/media/shot_grey_small.png"
 
 plants = pygame.sprite.Group()
-
 shots = pygame.sprite.Group()
 
 """

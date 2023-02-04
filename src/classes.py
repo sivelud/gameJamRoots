@@ -10,9 +10,9 @@ class Plant(Parent):
         super().__init__()
         self.pos = pos
         self.imgList = [pygame.transform.scale(pygame.image.load(peashooterRight),(90,90)),pygame.transform.scale(pygame.image.load(peashooterDown),(90,90)),pygame.transform.scale(pygame.image.load(peashooterLeft),(90,90)),pygame.transform.scale(pygame.image.load(peashooterUp),(90,90))]
-        self.listDirectionVectors = [v2(1,0),v2(0,-1),v2(-1,0),v2(0,1)]
-        self.image = self.imgList[0]
-        self.numberOfTimesClicked = 0
+        self.listDirectionVectors = [v2(1,0),v2(0,1),v2(-1,0),v2(0,-1)]
+        self.image = self.imgList[1]
+        self.numberOfTimesClicked = 1
         self.rect = self.image.get_rect()
         self.rect.topleft = [self.pos.x, self.pos.y]
 
@@ -27,7 +27,6 @@ class Plant(Parent):
     def shoot(self):
         shots.add(Projectile(copy.copy(self.pos + v2(45,45)), copy.copy(self.listDirectionVectors[self.numberOfTimesClicked%4])))
 
-
     def clicked(self):
         self.rotateImage()
         #upgrade()?
@@ -37,7 +36,6 @@ class Peashooter(Plant):
         super().__init__(pos)
 
 class Projectile(Parent):
-
     def __init__(self, pos, dir):
         super().__init__()
         self.image = pygame.image.load(projectile_img)
@@ -45,6 +43,7 @@ class Projectile(Parent):
         self.rect.center = [pos.x, pos.y]
         self.pos = pos
         self.dire = dir
+        self.life = 0
 
     def update(self):
         """
@@ -54,8 +53,14 @@ class Projectile(Parent):
             -----------
             Key, sprites_platform, level_blocks are needed for the polymorphism to work. 
         """
-        self.pos += self.dire * 25
+        self.pos += self.dire * 10
         self.rect.center = [self.pos.x, self.pos.y]
+        self.life +=1
+        self.execute()
+
+    def execute(self):
+        if self.life > 65:
+            self.kill()
 
 """
 * Input: touple (x, y)
@@ -126,7 +131,7 @@ class GameBoard():
             "a4":[None, (270,270)], "b4":[None, (360,270)], "c4":[None, (450, 270)], "d4": [None, (540, 270)],
             "a3":[None, (270, 360)], "b3":[None, (360, 360)], "c3":[None, (450, 360)], "d3":[None, (540, 360)],
             "a2":[None, (270, 450)], "b2":[None, (360, 450)], "c2":[None, (450, 450)], "d2":[None, (540, 450)],
-            "a1":[None, (270, 540)], "b1":[None, (360, 540)], "c1":[None, (450, 540)], "d1":[None,540, 540]
+            "a1":[None, (270, 540)], "b1":[None, (360, 540)], "c1":[None, (450, 540)], "d1":[None,(540, 540)]
         }
 
     def click_tile(self, mousePosClick):
