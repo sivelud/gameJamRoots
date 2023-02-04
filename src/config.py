@@ -1,7 +1,6 @@
 import pygame
 from pygame import Vector2 as v2
 import time
-
 pygame.init()
 
 """
@@ -21,6 +20,11 @@ peashooterRight = "src/media/peashooterR.png"
 peashooterLeft = "src/media/peashooterL.png"
 peashooterUp = "src/media/peashooterU.png"
 peashooterDown = "src/media/peashooterD.png"
+projectile_img = "src/media/shot_grey_small.png"
+
+
+
+shots = pygame.sprite.Group()
 
 """
 * Controls
