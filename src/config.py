@@ -22,6 +22,19 @@ peashooterRight = "src/media/peashooterR.png"
 peashooterLeft = "src/media/peashooterL.png"
 peashooterUp = "src/media/peashooterU.png"
 peashooterDown = "src/media/peashooterD.png"
+peashooterShop = "src/media/peashooterShop.png"
+
+dualshotRight = "src/media/dualshotR.png"
+dualshotLeft = "src/media/dualshotL.png"
+dualshotUp = "src/media/dualshotU.png"
+dualshotDown = "src/media/dualshotD.png"
+dualshotShop = "src/media/dualshotShop.png"
+
+enemyRight = "src/media/zombieR.png"
+enemyLeft = "src/media/zombieL.png"
+enemyUp = "src/media/zombieU.png"
+enemyDown = "src/media/zombieD.png"
+
 projectile_img = "src/media/shot_grey_small.png"
 
 enemies = pygame.sprite.Group()
@@ -29,7 +42,8 @@ plants = pygame.sprite.Group()
 shots = pygame.sprite.Group()
 cursorGroup = pygame.sprite.Group()
 
-shopitemsize = 45
+
+shopitemsize = 70
 shopOffset = 3
 shopitemY = 40
 
@@ -41,9 +55,13 @@ font = pygame.font.Font("freesansbold.ttf", 30)
 game_over_font = pygame.font.Font("freesansbold.ttf", 90)
 moneyPlacement = (850, 50)
 
-health  = 100
-money_per_kill = 50
+
+health  = 1
+
+money_per_kill = 2
+
 money = 100
+
 
 possibleSpawn = {
     0: [copy.copy(v2(0,270+45)), copy.copy(v2(0,360+45)), copy.copy(v2(0,450+45)), copy.copy(v2(0,540+45))], 

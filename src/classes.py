@@ -12,8 +12,8 @@ class Plant(Parent):
         self.pos = pos
         self.imgList = [pygame.transform.scale(pygame.image.load(peashooterRight),(90,90)),pygame.transform.scale(pygame.image.load(peashooterDown),(90,90)),pygame.transform.scale(pygame.image.load(peashooterLeft),(90,90)),pygame.transform.scale(pygame.image.load(peashooterUp),(90,90))]
         self.listDirectionVectors = [v2(1,0),v2(0,1),v2(-1,0),v2(0,-1)]
-        self.image = self.imgList[1]
-        self.numberOfTimesClicked = 1
+        self.image = self.imgList[0]
+        self.numberOfTimesClicked = 0
         self.rect = self.image.get_rect()
         self.rect.topleft = [self.pos.x, self.pos.y]
         self.updatesSinceShot = 0
@@ -46,6 +46,14 @@ class Peashooter(Plant):
 class DualShot(Plant):
     def __init__(self, pos):
         super().__init__(pos)
+        self.pos = pos
+        self.imgList = [pygame.transform.scale(pygame.image.load(dualshotRight),(90,90)),pygame.transform.scale(pygame.image.load(dualshotDown),(90,90)),pygame.transform.scale(pygame.image.load(dualshotLeft),(90,90)),pygame.transform.scale(pygame.image.load(dualshotUp),(90,90))]
+        self.listDirectionVectors = [v2(1,0),v2(0,1),v2(-1,0),v2(0,-1)]
+        self.image = self.imgList[0]
+        self.numberOfTimesClicked = 0
+        self.rect = self.image.get_rect()
+        self.rect.topleft = [self.pos.x, self.pos.y]
+        self.updatesSinceShot = 0
         self.cost = 25
         self.name = "dualshot"
 
@@ -182,6 +190,8 @@ class GameBoard():
     def __init__(self):
         self.mouseHolding = None
 
+        self.cursorImage = cursorImageClass()
+
         """
         [0] = Tower tile
         [1] = Position. Topleft Corner tuple (x,y)
@@ -194,9 +204,9 @@ class GameBoard():
             "a1":[None, (270, 540)], "b1":[None, (360, 540)], "c1":[None, (450, 540)], "d1":[None,(540, 540)],
 
             # Shop:
-            "peashooter":[ShopItem(v2(shopitemplacement(1), shopitemY), pygame.transform.scale(pygame.image.load(peashooterRight),(shopitemsize,shopitemsize)))],
-            "dualshot":[ShopItem(v2(shopitemplacement(2), shopitemY), pygame.transform.scale(pygame.image.load(peashooterLeft),(shopitemsize,shopitemsize)))],
-            "farm":[ShopItem(v2(shopitemplacement(3), shopitemY), pygame.transform.scale(pygame.image.load(peashooterRight),(shopitemsize,shopitemsize)))],
+            "peashooter":[ShopItem(v2(shopitemplacement(1), shopitemY), pygame.transform.scale(pygame.image.load(peashooterShop),(shopitemsize,shopitemsize)))],
+            "dualshot":[ShopItem(v2(shopitemplacement(2), shopitemY), pygame.transform.scale(pygame.image.load(dualshotShop),(shopitemsize,shopitemsize)))],
+            "peashooter3":[ShopItem(v2(shopitemplacement(3), shopitemY), pygame.transform.scale(pygame.image.load(peashooterRight),(shopitemsize,shopitemsize)))],
 
         }
         self.level = 0
@@ -281,15 +291,19 @@ class GameBoard():
             plants.add(plant)
             cn.money = cn.money - farmCost
 
-    def mouseImage(self, cursorImage):
+    def mouseImage(self):
         if self.mouseHolding != None:
+            if self.mouseHolding == "peashooter":
+                self.cursorImage.updateImage(peashooterRight)
+            if self.mouseHolding == "dualshot":
+                self.cursorImage.updateImage(dualshotRight)
             x,y = pygame.mouse.get_pos()
             #cursorImage = cursorImageClass()
-            cursorImage.rect = cursorImage.image.get_rect()
-            cursorImage.rect.center = [x, y]
-            cursorGroup.add(cursorImage)
+            self.cursorImage.rect = self.cursorImage.image.get_rect()
+            self.cursorImage.rect.center = [x, y]
+            cursorGroup.add(self.cursorImage)
         else:
-            cursorImage.kill()
+            self.cursorImage.kill()
 
     def writeMoney(self):
         txt = "$"
@@ -321,7 +335,7 @@ class Enemy(Parent):
         super().__init__()
         self.pos = pos
         self.dire = dire
-        self.imgList = [pygame.transform.scale(pygame.image.load(peashooterRight),(90,90)),pygame.transform.scale(pygame.image.load(peashooterDown),(90,90)),pygame.transform.scale(pygame.image.load(peashooterLeft),(90,90)),pygame.transform.scale(pygame.image.load(peashooterUp),(90,90))]
+        self.imgList = [pygame.transform.scale(pygame.image.load(enemyRight),(90,90)),pygame.transform.scale(pygame.image.load(enemyDown),(90,90)),pygame.transform.scale(pygame.image.load(enemyLeft),(90,90)),pygame.transform.scale(pygame.image.load(enemyUp),(90,90))]
         self.listDirectionVectors = [v2(0.5,0),v2(0,0.5),v2(-0.5,0),v2(0,-0.5)]
         self.image = self.imgList[dire]
         self.rect = self.image.get_rect()
@@ -361,3 +375,6 @@ class cursorImageClass(Parent):
     def __init__(self):
         super().__init__()
         self.image = pygame.transform.scale(pygame.image.load(peashooterRight),(60,60))
+
+    def updateImage(self, image):
+        self.image = pygame.transform.scale(pygame.image.load(image),(60,60))
