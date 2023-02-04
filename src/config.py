@@ -30,6 +30,11 @@ dualshotUp = "src/media/dualshotU.png"
 dualshotDown = "src/media/dualshotD.png"
 dualshotShop = "src/media/dualshotShop.png"
 
+enemyRight = "src/media/zombieR.png"
+enemyLeft = "src/media/zombieL.png"
+enemyUp = "src/media/zombieU.png"
+enemyDown = "src/media/zombieD.png"
+
 projectile_img = "src/media/shot_grey_small.png"
 
 enemies = pygame.sprite.Group()

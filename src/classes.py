@@ -325,7 +325,7 @@ class Enemy(Parent):
         super().__init__()
         self.pos = pos
         self.dire = dire
-        self.imgList = [pygame.transform.scale(pygame.image.load(peashooterRight),(90,90)),pygame.transform.scale(pygame.image.load(peashooterDown),(90,90)),pygame.transform.scale(pygame.image.load(peashooterLeft),(90,90)),pygame.transform.scale(pygame.image.load(peashooterUp),(90,90))]
+        self.imgList = [pygame.transform.scale(pygame.image.load(enemyRight),(90,90)),pygame.transform.scale(pygame.image.load(enemyDown),(90,90)),pygame.transform.scale(pygame.image.load(enemyLeft),(90,90)),pygame.transform.scale(pygame.image.load(enemyUp),(90,90))]
         self.listDirectionVectors = [v2(0.5,0),v2(0,0.5),v2(-0.5,0),v2(0,-0.5)]
         self.image = self.imgList[dire]
         self.rect = self.image.get_rect()
