@@ -62,7 +62,6 @@ class Farm(Plant):
 
     def shoot(self):
         self.shotsCounter += 1
-        print("hey")
         if self.shotsCounter >= 15:
             cn.money += 5
             self.shotsCounter = 0
