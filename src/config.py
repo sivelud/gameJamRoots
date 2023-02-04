@@ -41,6 +41,8 @@ health = 1
 
 peashooterCost = 10
 
+dualshotCost = 25
+
 font = pygame.font.Font("freesansbold.ttf", 30)
 game_over_font = pygame.font.Font("freesansbold.ttf", 90)
 moneyPlacement = (850, 50)
@@ -48,11 +50,9 @@ moneyPlacement = (850, 50)
 
 health  = 1
 
+money_per_kill = 2
 
-money = 25
-
-
-
+money = 200
 
 
 possibleSpawn = {

@@ -41,11 +41,13 @@ class Peashooter(Plant):
     def __init__(self, pos):
         super().__init__(pos)
         self.cost = 10
+        self.name = "peashooter"
 
 class DualShot(Plant):
     def __init__(self, pos):
         super().__init__(pos)
         self.cost = 25
+        self.name = "dualshot"
 
     def shoot(self):
         shots.add(Projectile(copy.copy(self.pos + v2(45,45)), copy.copy(self.listDirectionVectors[self.numberOfTimesClicked%4])))
@@ -147,7 +149,7 @@ def coordinates_to_key(pos):
 
     if shopitemY <= y < shopitemY+shopitemsize:
         if shopitemplacement(1) <= x < shopitemplacement(1)+shopitemsize:
-            key = "peashooter1"
+            key = "peashooter"
         if shopitemplacement(2) <= x < shopitemplacement(2)+shopitemsize:
             key = "dualshot"
         if shopitemplacement(3) <= x < shopitemplacement(3)+shopitemsize:
@@ -180,7 +182,7 @@ class GameBoard():
             "a1":[None, (270, 540)], "b1":[None, (360, 540)], "c1":[None, (450, 540)], "d1":[None,(540, 540)],
 
             # Shop:
-            "peashooter1":[ShopItem(v2(shopitemplacement(1), shopitemY), pygame.transform.scale(pygame.image.load(peashooterRight),(shopitemsize,shopitemsize)))],
+            "peashooter":[ShopItem(v2(shopitemplacement(1), shopitemY), pygame.transform.scale(pygame.image.load(peashooterRight),(shopitemsize,shopitemsize)))],
             "dualshot":[ShopItem(v2(shopitemplacement(2), shopitemY), pygame.transform.scale(pygame.image.load(peashooterLeft),(shopitemsize,shopitemsize)))],
             "peashooter3":[ShopItem(v2(shopitemplacement(3), shopitemY), pygame.transform.scale(pygame.image.load(peashooterRight),(shopitemsize,shopitemsize)))],
 
@@ -188,7 +190,7 @@ class GameBoard():
         self.level = 0
         self.numOfEnemies = 0
         self.enemiesToBeSpawned = 0
-        plants.add(self.mapTiles["peashooter1"][0])
+        plants.add(self.mapTiles["peashooter"][0])
         plants.add(self.mapTiles["dualshot"][0])
         plants.add(self.mapTiles["peashooter3"][0])
 
@@ -210,10 +212,18 @@ class GameBoard():
 
 
         if self.mapTiles[tile] != None:
+            print(tile)
             if self.mapTiles[tile][0] != None:
-                checker = self.mapTiles[tile][0].clicked()
+                checker = self.mapTiles[tile][0].clicked() # Shop tiles return 1, grid items return None
                 if checker != None:
-                    self.mouseHolding = tile
+                    if tile == "peashooter":
+                        if cn.money >= cn.peashooterCost: # Highlights peashooter only if you can afford it
+                            self.mouseHolding = tile
+                    if tile == "dualshot":
+                        if cn.money >= cn.dualshotCost:
+                            self.mouseHolding = tile
+
+
 
         
     def placePlant(self, key):
@@ -221,8 +231,14 @@ class GameBoard():
         posV2 = v2(pos[0], pos[1])
         global money
 
-        if self.mouseHolding == "peashooter1":
-            if money < Peashooter(v2(50,50)).cost:
+        if self.mapTiles[key][0] != None: # If the plant placed is the same as is there before, no money is lost.
+            if self.mapTiles[key][0].name == self.mouseHolding:
+                self.mouseHolding = None
+                return
+
+
+        if self.mouseHolding == "peashooter":
+            if cn.money < Peashooter(v2(50,50)).cost:
                 self.mouseHolding = None
                 return
             plant = Peashooter(posV2)
@@ -230,10 +246,10 @@ class GameBoard():
                 self.mapTiles[key][0].kill()
             self.mapTiles[key][0] = plant
             plants.add(plant)
-            money = money - Peashooter(v2(50,50)).cost
+            cn.money = cn.money - Peashooter(v2(50,50)).cost
 
         if self.mouseHolding == "dualshot":
-            if money < DualShot(v2(50,50)).cost:
+            if cn.money < DualShot(v2(50,50)).cost:
                 self.mouseHolding = None
                 return
             plant = DualShot(posV2)
@@ -241,7 +257,7 @@ class GameBoard():
                 self.mapTiles[key][0].kill()
             self.mapTiles[key][0] = plant
             plants.add(plant)
-            money = money - DualShot(v2(50,50)).cost
+            cn.money = cn.money - DualShot(v2(50,50)).cost
         
         if self.mouseHolding == "peashooter3":
             if money < peashooterCost:
@@ -267,7 +283,7 @@ class GameBoard():
 
     def writeMoney(self):
         txt = "$"
-        txt += str(money)
+        txt += str(cn.money)
 
         money_txt = font.render(txt, True, (100, 100, 100))
 
@@ -316,6 +332,7 @@ class Enemy(Parent):
             if pygame.sprite.spritecollide(self, shots, True):
                 self.health -= 1
         if self.health <= 0:
+            cn.money += cn.money_per_kill
             self.kill()
         
     def enemyCrossedLanes(self):
