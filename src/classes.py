@@ -49,6 +49,8 @@ class ShopItem(Parent):
     def shoot(self):
         pass
 
+            
+            
 
 
 class Projectile(Parent):
@@ -194,17 +196,57 @@ class GameBoard():
             if self.mapTiles[tile][0] != None:
                 checker = self.mapTiles[tile][0].clicked()
                 if checker != None:
-                    self.mouseHolding = copy.copy(self.mapTiles[tile][0])
+                    self.mouseHolding = tile
 
         
     def placePlant(self, key):
         pos = self.mapTiles[key][1]
         posV2 = v2(pos[0], pos[1])
-        plant = Peashooter(posV2)
-        if self.mapTiles[key][0] != None:
-            self.mapTiles[key][0].kill()
-        self.mapTiles[key][0] = plant
-        plants.add(plant)
+        global money
+
+        if self.mouseHolding == "peashooter1":
+            if money < peashooterCost:
+                self.mouseHolding = None
+                return
+            plant = Peashooter(posV2)
+            if self.mapTiles[key][0] != None:
+                self.mapTiles[key][0].kill()
+            self.mapTiles[key][0] = plant
+            plants.add(plant)
+            money = money - peashooterCost
+
+        if self.mouseHolding == "peashooter2":
+            if money < peashooterCost:
+                self.mouseHolding = None
+                return
+            plant = Peashooter(posV2)
+            if self.mapTiles[key][0] != None:
+                self.mapTiles[key][0].kill()
+            self.mapTiles[key][0] = plant
+            plants.add(plant)
+            money = money - peashooterCost
+        
+        if self.mouseHolding == "peashooter3":
+            if money < peashooterCost:
+                self.mouseHolding = None
+                return
+            plant = Peashooter(posV2)
+            if self.mapTiles[key][0] != None:
+                self.mapTiles[key][0].kill()
+            self.mapTiles[key][0] = plant
+            plants.add(plant)
+            money = money - peashooterCost
+
+
+    def writeMoney(self):
+        txt = "$"
+        txt += str(money)
+
+        money_txt = font.render(txt, True, (100, 100, 100))
+
+        textRect1 = money_txt.get_rect()
+        textRect1.center = (moneyPlacement)
+        screen.blit(money_txt, textRect1)
 
 
 class Enemy(Parent):

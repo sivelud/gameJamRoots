@@ -30,8 +30,12 @@ shopitemsize = 45
 shopOffset = 3
 shopitemY = 40
 
+peashooterCost = 10
 
-scorePlacement = (800, 50)
+font = pygame.font.Font("freesansbold.ttf", 30)
+moneyPlacement = (850, 50)
+
+money = 25
 
 
 
