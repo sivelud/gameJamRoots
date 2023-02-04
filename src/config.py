@@ -23,11 +23,14 @@ peashooterDown = "src/media/peashooterD.png"
 projectile_img = "src/media/shot_grey_small.png"
 
 enemies = pygame.sprite.Group()
-
 plants = pygame.sprite.Group()
-
 shots = pygame.sprite.Group()
 
+
+possibleSpawn = {'0': [v2(0,270+45),
+    v2(0,270+45 + 90),
+    v2(0,270+45 + 90*2),
+    v2(0,270+45 + 90*3)]}
 """
 * Controls
 """

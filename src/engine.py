@@ -4,7 +4,13 @@ def engine():
 
     board = GameBoard()
     board.placePlant("d2")
-    enemies.add(Enemy(v2(0,480), 0))
+    enemies.add(Enemy(v2(0,270+45), 0))
+    enemies.add(Enemy(v2(0,270+45 + 90), 0))
+    enemies.add(Enemy(v2(0,270+45 + 90*2), 0))
+    enemies.add(Enemy(v2(0,270+45 + 90*3), 0))
+    
+
+
 
     """
     * Main loop
