@@ -1,6 +1,9 @@
 from config import *
+from classes import *
 
 def engine():
+
+    board = GameBoard()
 
     """
     * Main loop
@@ -15,11 +18,28 @@ def engine():
             if event.type == pygame.QUIT:
                 running = False
 
+            
+            if event.type == pygame.MOUSEBUTTONUP: #MOUSE POSITION
+                mousePos = pygame.mouse.get_pos()
+                board.click_tile(mousePos)
+
         keys = pygame.key.get_pressed()
+
+        
+
+        
+
+        
 
         if game_loop:
             # Fills screen with bg color
-            screen.fill(bg)
+
+            bg = pygame.image.load("src/media/gridPlaceholderNumerated.png")
+
+            #INSIDE OF THE GAME LOOP
+            screen.blit(bg, (0, 0))
+
+
             # Gets keypressed array
             # Updates the players
 
