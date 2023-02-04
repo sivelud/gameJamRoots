@@ -4,13 +4,27 @@ def engine():
 
     board = GameBoard()
     board.placePlant("d2")
+
+    """ 
     enemies.add(Enemy(v2(0,270+45), 0))
-    enemies.add(Enemy(v2(0,270+45 + 90), 0))
-    enemies.add(Enemy(v2(0,270+45 + 90*2), 0))
-    enemies.add(Enemy(v2(0,270+45 + 90*3), 0))
-    
+    enemies.add(Enemy(v2(0,360+45), 0))
+    enemies.add(Enemy(v2(0,450+45), 0))
+    enemies.add(Enemy(v2(0,540+45), 0))
+    enemies.add(Enemy(v2((270+45, 0)),1))
+    enemies.add(Enemy(v2((360+45, 0)),1))
+    enemies.add(Enemy(v2((450+45, 0)),1))
+    enemies.add(Enemy(v2((540+45, 0)),1))
+    enemies.add(Enemy(v2(900,270+45), 2))
+    enemies.add(Enemy(v2(900,360+45), 2))
+    enemies.add(Enemy(v2(900,450+45), 2))
+    enemies.add(Enemy(v2(900,540+45), 2))
+    enemies.add(Enemy(v2((360+45, 900)),3))
+    enemies.add(Enemy(v2((270+45, 900)),3))
+    enemies.add(Enemy(v2((450+45, 900)),3))
+    enemies.add(Enemy(v2((540+45, 900)),3))
+    """
 
-
+    enemies.add(Enemy(possibleSpawn[0][0], 0))
 
     """
     * Main loop
