@@ -35,6 +35,8 @@ enemyLeft = "src/media/zombieL.png"
 enemyUp = "src/media/zombieU.png"
 enemyDown = "src/media/zombieD.png"
 
+farmImage = "src/media/farm.png"
+
 projectile_img = "src/media/shot_grey_small.png"
 
 enemies = pygame.sprite.Group()
@@ -60,7 +62,7 @@ health  = 1
 
 money_per_kill = 2
 
-money = 100
+money = 15
 
 
 possibleSpawn = {

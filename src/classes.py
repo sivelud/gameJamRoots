@@ -65,8 +65,15 @@ class DualShot(Plant):
 class Farm(Plant):
     def __init__(self, pos):
         super().__init__(pos)
+        self.imgList = [pygame.transform.scale(pygame.image.load(farmImage),(90,90)),pygame.transform.scale(pygame.image.load(farmImage),(90,90)),pygame.transform.scale(pygame.image.load(farmImage),(90,90)),pygame.transform.scale(pygame.image.load(farmImage),(90,90))]
+        self.listDirectionVectors = [v2(1,0),v2(0,1),v2(-1,0),v2(0,-1)]
+        self.image = self.imgList[0]
+        self.numberOfTimesClicked = 0
+        self.rect = self.image.get_rect()
+        self.rect.topleft = [self.pos.x, self.pos.y]
         self.shotsCounter = 0
         self.name = "farm"
+
 
     def shoot(self):
         self.shotsCounter += 1
@@ -206,7 +213,7 @@ class GameBoard():
             # Shop:
             "peashooter":[ShopItem(v2(shopitemplacement(1), shopitemY), pygame.transform.scale(pygame.image.load(peashooterShop),(shopitemsize,shopitemsize)))],
             "dualshot":[ShopItem(v2(shopitemplacement(2), shopitemY), pygame.transform.scale(pygame.image.load(dualshotShop),(shopitemsize,shopitemsize)))],
-            "farm":[ShopItem(v2(shopitemplacement(3), shopitemY), pygame.transform.scale(pygame.image.load(peashooterRight),(shopitemsize,shopitemsize)))],
+            "farm":[ShopItem(v2(shopitemplacement(3), shopitemY), pygame.transform.scale(pygame.image.load(farmImage),(shopitemsize,shopitemsize)))],
         }
         self.level = 0
         self.numOfEnemies = 0
@@ -296,6 +303,8 @@ class GameBoard():
                 self.cursorImage.updateImage(peashooterRight)
             if self.mouseHolding == "dualshot":
                 self.cursorImage.updateImage(dualshotRight)
+            if self.mouseHolding == "farm":
+                self.cursorImage.updateImage(farmImage)
             x,y = pygame.mouse.get_pos()
             #cursorImage = cursorImageClass()
             self.cursorImage.rect = self.cursorImage.image.get_rect()
