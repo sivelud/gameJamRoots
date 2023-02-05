@@ -93,6 +93,7 @@ def engine():
 
             board.writeMoney()
             board.writeLevel()
+            board.writeShopPrice()
 
             # Writes score and score nr
             # Draws all the above on to the screen
