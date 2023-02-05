@@ -70,9 +70,9 @@ zombieSourceImage4 = "src/media/zombie4.png"
 zombieSourceImage4IMG = pygame.transform.scale(pygame.image.load(zombieSourceImage4),(90,90))
 
 zombieRightIMG1 = pygame.transform.flip(zombieSourceImage1IMG, True, False)
-zombieRightIMG2 = pygame.transform.flip(zombieSourceImage1IMG, True, False)
-zombieRightIMG3 = pygame.transform.flip(zombieSourceImage1IMG, True, False)
-zombieRightIMG4 = pygame.transform.flip(zombieSourceImage1IMG, True, False)
+zombieRightIMG2 = pygame.transform.flip(zombieSourceImage2IMG, True, False)
+zombieRightIMG3 = pygame.transform.flip(zombieSourceImage3IMG, True, False)
+zombieRightIMG4 = pygame.transform.flip(zombieSourceImage4IMG, True, False)
 
 zombieLeftWalkLoop = [zombieSourceImage1IMG, zombieSourceImage2IMG, zombieSourceImage3IMG, zombieSourceImage4IMG]
 zombieRightWalkLoop = [zombieRightIMG1, zombieRightIMG2, zombieRightIMG3, zombieRightIMG4]
