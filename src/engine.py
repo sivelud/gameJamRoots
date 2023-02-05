@@ -78,6 +78,9 @@ def engine():
             for sprites in [plants, shots, enemies,cursorGroup]:
                 sprites.update()
                 sprites.draw(screen)
+            
+            print("shots:", len(shots))
+            print("enemies:", len(enemies))
 
             board.writeMoney()
 
