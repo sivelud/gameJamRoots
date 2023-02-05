@@ -55,11 +55,29 @@ farmImage = "src/media/farm.png"
 farmImageIMG = pygame.transform.scale(pygame.image.load(farmImage),(90,90))
 
 # Enemy
-
 enemyRight = "src/media/zombieR.png"
 enemyLeft = "src/media/zombieL.png"
 enemyUp = "src/media/zombieU.png"
 enemyDown = "src/media/zombieD.png"
+
+zombieSourceImage1 = "src/media/zombie1.png"
+zombieSourceImage1IMG = pygame.transform.scale(pygame.image.load(zombieSourceImage1),(90,90))
+zombieSourceImage2 = "src/media/zombie2.png"
+zombieSourceImage2IMG = pygame.transform.scale(pygame.image.load(zombieSourceImage2),(90,90))
+zombieSourceImage3 = "src/media/zombie3.png"
+zombieSourceImage3IMG = pygame.transform.scale(pygame.image.load(zombieSourceImage3),(90,90))
+zombieSourceImage4 = "src/media/zombie4.png"
+zombieSourceImage4IMG = pygame.transform.scale(pygame.image.load(zombieSourceImage4),(90,90))
+
+zombieRightIMG1 = pygame.transform.flip(zombieSourceImage1IMG, True, False)
+zombieRightIMG2 = pygame.transform.flip(zombieSourceImage1IMG, True, False)
+zombieRightIMG3 = pygame.transform.flip(zombieSourceImage1IMG, True, False)
+zombieRightIMG4 = pygame.transform.flip(zombieSourceImage1IMG, True, False)
+
+zombieLeftWalkLoop = [zombieSourceImage1IMG, zombieSourceImage2IMG, zombieSourceImage3IMG, zombieSourceImage4IMG]
+zombieRightWalkLoop = [zombieRightIMG1, zombieRightIMG2, zombieRightIMG3, zombieRightIMG4]
+
+
 
 
 
