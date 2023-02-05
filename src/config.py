@@ -145,7 +145,7 @@ levelPlacement= (100, 850)
 startHealth = 1
 health  = startHealth
 
-startmoney = 250
+startmoney = 25
 money = startmoney
 
 
