@@ -114,7 +114,8 @@ moneyPlacement = (850, 50)
 startHealth = 1
 health  = startHealth
 
-money = 250
+startMoney = 20
+money = startMoney
 
 
 possibleSpawn = {

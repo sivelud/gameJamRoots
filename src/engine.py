@@ -2,9 +2,28 @@ from classes import *
 import config as cn
 
 
+def resetGame(zombieGroup, plantGroup, flyGroup, gameBoard):
+    for elem in zombieGroup:
+        elem.kill()
+    
+    for elem in plantGroup:
+        elem.kill()
+
+    for elem in flyGroup:
+        elem.kill()
+
+    gameBoard.killAllPlants()
+        
+    cn.health = cn.startHealth
+    cn.money = cn.startMoney
+    gameBoard.level = 0
+        
+
 def engine():
 
     board = GameBoard()
+
+    
 
 
     """
@@ -76,7 +95,7 @@ def engine():
         if game_loop == 2:
             txt = "GAME OVER"
 
-            cn.health = cn.startHealth
+            resetGame(enemies, plants, flyGroup, board)
 
             game_over_txt = game_over_font.render(txt, True, (255, 50, 50))
 

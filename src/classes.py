@@ -236,7 +236,7 @@ class GameBoard():
         [0] = Tower tile
         [1] = Position. Topleft Corner tuple (x,y)
         """
-        self.mapTiles = {
+        self.mapTiles = { # ONLY plant tiles in the middle should have a 2 letter long name
             # Centre:
             "a4":[None, (270,270)], "b4":[None, (360,270)], "c4":[None, (450, 270)], "d4": [None, (540, 270)],
             "a3":[None, (270, 360)], "b3":[None, (360, 360)], "c3":[None, (450, 360)], "d3":[None, (540, 360)],
@@ -259,6 +259,18 @@ class GameBoard():
         shopGroup.add(self.mapTiles["sell"][0])
         self.flyPlant = False
         self.flySpawned = False
+
+    def killPlant(self, key):
+        if self.mapTiles[key][0] != None:
+            self.mapTiles[key][0].kill()
+            self.mapTiles[key][0] = None
+
+    def killAllPlants(self):
+        for elem in self.mapTiles:
+            if len(elem) == 2:
+                self.killPlant(elem)
+            
+
 
     def click_tile(self, mousePosClick):
         tile = coordinates_to_key(mousePosClick)
