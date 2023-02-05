@@ -3,6 +3,8 @@ from pygame import Vector2 as v2
 import time
 import copy
 
+from pygame import mixer
+
 pygame.init()
 
 """
@@ -72,6 +74,25 @@ flyIMG = pygame.transform.scale(pygame.image.load(fly),(25,25))
 
 
 
+# pink Zombie
+pinkZombieSourceImage1 = "src/media/pinkzombie1.png"
+pinkZombieSourceImage1IMG = pygame.transform.scale(pygame.image.load(pinkZombieSourceImage1),(90,90))
+pinkZombieSourceImage2 = "src/media/pinkzombie2.png"
+pinkZombieSourceImage2IMG = pygame.transform.scale(pygame.image.load(pinkZombieSourceImage2),(90,90))
+pinkZombieSourceImage3 = "src/media/pinkzombie3.png"
+pinkZombieSourceImage3IMG = pygame.transform.scale(pygame.image.load(pinkZombieSourceImage3),(90,90))
+pinkZombieSourceImage4 = "src/media/pinkzombie4.png"
+pinkZombieSourceImage4IMG = pygame.transform.scale(pygame.image.load(pinkZombieSourceImage4),(90,90))
+
+zombieRightIMG1 = pygame.transform.flip(pinkZombieSourceImage1IMG, True, False)
+zombieRightIMG2 = pygame.transform.flip(pinkZombieSourceImage2IMG, True, False)
+zombieRightIMG3 = pygame.transform.flip(pinkZombieSourceImage3IMG, True, False)
+zombieRightIMG4 = pygame.transform.flip(pinkZombieSourceImage4IMG, True, False)
+
+pinkzombieLeftWalkLoop = [pinkZombieSourceImage1IMG, pinkZombieSourceImage2IMG, pinkZombieSourceImage3IMG, pinkZombieSourceImage4IMG]
+pinkzombieRightWalkLoop = [zombieRightIMG1, zombieRightIMG2, zombieRightIMG3, zombieRightIMG4]
+
+
 # Zombie
 zombieSourceImage1 = "src/media/zombie1.png"
 zombieSourceImage1IMG = pygame.transform.scale(pygame.image.load(zombieSourceImage1),(90,90))
@@ -118,7 +139,8 @@ dualshotCost = 25
 
 font = pygame.font.Font("freesansbold.ttf", 30)
 game_over_font = pygame.font.Font("freesansbold.ttf", 90)
-moneyPlacement = (850, 50)
+moneyPlacement = (750, 60)
+levelPlacement= (100, 850)
 
 startHealth = 1
 health  = startHealth
@@ -134,3 +156,26 @@ possibleSpawn = {
     3: [copy.copy(v2(360+45, 900)), copy.copy(v2(270+45, 900)), copy.copy(v2(450+45, 900)), copy.copy(v2(540+45, 900))]
 }
 
+
+# Sound:
+mixer.init()
+
+mixer.music.load('src/media/song.mp3')
+
+# Volume
+mixer.music.set_volume(0.2)
+
+def playMusic():
+    mixer.music.play()
+
+
+shoot_sound = pygame.mixer.Sound("src/media/SHOOT.mp3")
+shoot_sound.set_volume(0.2)
+def playShootSound():
+    pygame.mixer.Sound.play(shoot_sound)
+
+
+death_sound = pygame.mixer.Sound("src/media/death.mp3")
+death_sound.set_volume(0.8)
+def playDeathSound():
+    pygame.mixer.Sound.play(death_sound)

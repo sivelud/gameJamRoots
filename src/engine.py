@@ -21,12 +21,13 @@ def resetGame(zombieGroup, plantGroup, flyGroup, gameBoard, shots):
     cn.money = cn.startmoney
     gameBoard.level = 0
         
+    
 
 def engine():
 
     board = GameBoard()
 
-    
+    cn.playMusic()
 
 
     """
@@ -63,6 +64,7 @@ def engine():
             game_loop = 2
 
         if game_loop == 1:
+            
             # Fills screen with bg color
 
             #bg = pygame.image.load(backgroundImage1)
@@ -90,12 +92,14 @@ def engine():
             
 
             board.writeMoney()
+            board.writeLevel()
 
             # Writes score and score nr
             # Draws all the above on to the screen
             pygame.display.flip()
 
         if game_loop == 2:
+            
             txt = "GAME OVER"
 
             resetGame(enemies, plants, flyGroup, board, shots)

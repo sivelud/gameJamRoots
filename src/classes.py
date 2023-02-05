@@ -27,6 +27,7 @@ class Plant(Parent):
         self.rect.topleft = [self.pos.x, self.pos.y]
         
     def shoot(self):
+        cn.playShootSound()
         shots.add(Projectile(copy.copy(self.pos + v2(45,45)), copy.copy(self.listDirectionVectors[self.numberOfTimesClicked%4])))
         self.updatesSinceShot = 0
 
@@ -381,11 +382,21 @@ class GameBoard():
         txt = "$"
         txt += str(cn.money)
 
-        money_txt = font.render(txt, True, (100, 100, 100))
+        money_txt = font.render(txt, True, (250, 180, 0))
 
         textRect1 = money_txt.get_rect()
         textRect1.center = (moneyPlacement)
         screen.blit(money_txt, textRect1)
+
+    def writeLevel(self):
+        txt = "LEVEL: "
+        txt += str(self.level)
+
+        level_txt = font.render(txt, True, (0, 0, 0))
+
+        textRect1 = level_txt.get_rect()
+        textRect1.center = (levelPlacement)
+        screen.blit(level_txt, textRect1)
 
     def enemySpawns(self):
         if self.numOfEnemies < self.enemiesToBeSpawned:
@@ -492,6 +503,7 @@ class Enemy(Parent):
                 self.health -= 1
         if self.health <= 0:
             cn.money += self.moneyPerKill
+            cn.playDeathSound()
             self.kill()
         
     def enemyCrossedLanes(self):
@@ -533,6 +545,8 @@ class SuperEnemy(Enemy):
         super().__init__(pos, dire)
         self.listDirectionVectors = [v2(1,0),v2(0,1),v2(-1,0),v2(0,-1)]
         self.health = 10
+        self.imgList = [pinkzombieRightWalkLoop, pinkzombieLeftWalkLoop, pinkzombieLeftWalkLoop, pinkzombieLeftWalkLoop]
+        self.animationLoop = self.imgList[dire]
 
 
 
