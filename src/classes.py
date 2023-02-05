@@ -133,7 +133,7 @@ class Fly(Parent):
         self.acc = endpos - pos
         self.acc.normalize_ip()
         self.timeStationary = 0
-        self.dir = v2(0.5,0)
+        self.dir = v2(-0.5,0)
     
     def move(self):
         if ((self.pos.x > self.endpos.x +20 and self.pos.x < self.endpos.x + 50)) and ((self.pos.y > self.endpos.y +20 and self.pos.y < self.endpos.y + 50)):
@@ -387,7 +387,7 @@ class GameBoard():
 
                 if (spawn - self.level*0.1 < 10) and len(plants) != 0 and len(flyGroup) == 0:
                     self.flyPlant = self.chooseFlySpawn()
-                    flyGroup.add(Fly(v2(0,0), self.flyPlant))
+                    flyGroup.add(Fly(v2(910,910), self.flyPlant))
                     self.flySpawned = True
                 elif len(flyGroup) == 0:
                     print(False)
