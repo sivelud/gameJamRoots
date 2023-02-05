@@ -5,27 +5,6 @@ import config as cn
 def engine():
 
     board = GameBoard()
-    board.placePlant("d2")
-    
-
-    """ 
-    enemies.add(Enemy(v2(0,270+45), 0))
-    enemies.add(Enemy(v2(0,360+45), 0))
-    enemies.add(Enemy(v2(0,450+45), 0))
-    enemies.add(Enemy(v2(0,540+45), 0))
-    enemies.add(Enemy(v2((270+45, 0)),1))
-    enemies.add(Enemy(v2((360+45, 0)),1))
-    enemies.add(Enemy(v2((450+45, 0)),1))
-    enemies.add(Enemy(v2((540+45, 0)),1))
-    enemies.add(Enemy(v2(900,270+45), 2))
-    enemies.add(Enemy(v2(900,360+45), 2))
-    enemies.add(Enemy(v2(900,450+45), 2))
-    enemies.add(Enemy(v2(900,540+45), 2))
-    enemies.add(Enemy(v2((360+45, 900)),3))
-    enemies.add(Enemy(v2((270+45, 900)),3))
-    enemies.add(Enemy(v2((450+45, 900)),3))
-    enemies.add(Enemy(v2((540+45, 900)),3))
-    """
 
 
     """
@@ -34,6 +13,7 @@ def engine():
     game_loop = 0
     running = True
     shootTiming = 0
+    game_over_timer = 0
 
     while running:
         # takes keypress input
@@ -105,6 +85,10 @@ def engine():
             screen.blit(game_over_txt, textRect1)
 
             pygame.display.flip()
+            game_over_timer += 1
+            if game_over_timer > 200:
+                game_over_timer = 0
+                game_loop = 0
 
         shootTiming += 1
         # Limits program speed
