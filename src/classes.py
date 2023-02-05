@@ -407,7 +407,7 @@ class GameBoard():
                     rint = r.randint(0,3)
                     self.lastSpawn = rint
 
-                if (r.uniform(0,10) - self.level*0.1 < 0.5) and len(plants) != 0 and len(flyGroup) == 0 and self.level > 4:
+                if (r.uniform(0,10) - self.level*0.1 < 1) and len(plants) != 0 and len(flyGroup) == 0 and self.level > 4:
                     self.flyPlant = self.chooseFlySpawn()
                     flyGroup.add(Fly(v2(910,910), self.flyPlant))
                     if self.level > 10:
