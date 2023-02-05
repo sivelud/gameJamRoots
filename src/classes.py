@@ -110,6 +110,7 @@ class Projectile(Parent):
     def move(self):
         self.pos += self.dire * 10
         self.rect.center = [self.pos.x, self.pos.y]
+        self.life += 1
 
     def update(self):
         self.move()

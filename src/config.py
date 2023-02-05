@@ -14,7 +14,7 @@ program_speed = 60          # default=30
 screen = pygame.display.set_mode((screen_w, screen_h))
 klokke = pygame.time.Clock()
 
-pygame.display.set_caption("Mayham game boyz")
+pygame.display.set_caption("Plants against Zombies")
 bg = (0, 255, 255)
 font = pygame.font.Font("freesansbold.ttf", 30)
 
