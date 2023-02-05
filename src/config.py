@@ -69,7 +69,7 @@ projectileIMG = pygame.transform.scale(pygame.image.load(projectile),(25,25))
 
 # Fly
 fly = "src/media/fly.png"
-flyIMG = pygame.transform.scale(pygame.image.load(fly),(25,25))
+flyIMG = pygame.transform.scale(pygame.image.load(fly),(500,500))
 
 
 

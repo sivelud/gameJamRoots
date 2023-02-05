@@ -515,7 +515,7 @@ class Enemy(Parent):
 class EnemyBetter(Enemy):
     def __init__(self, pos, dire):
         super().__init__(pos, dire)
-        self.health = 10
+        self.health = 5
         self.moneyPerKill = 5
 
     def collision(self):
