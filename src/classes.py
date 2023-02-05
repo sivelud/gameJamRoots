@@ -10,7 +10,7 @@ class Plant(Parent):
     def __init__(self, pos):
         super().__init__()
         self.pos = pos
-        self.imgList = [pygame.transform.scale(pygame.image.load(peashooterRight),(90,90)),pygame.transform.scale(pygame.image.load(peashooterDown),(90,90)),pygame.transform.scale(pygame.image.load(peashooterLeft),(90,90)),pygame.transform.scale(pygame.image.load(peashooterUp),(90,90))]
+        self.imgList = [peashooterRightIMG, peashooterDownIMG,peashooterLeftIMG,peashooterUpIMG]
         self.listDirectionVectors = [v2(1,0),v2(0,1),v2(-1,0),v2(0,-1)]
         self.image = self.imgList[0]
         self.numberOfTimesClicked = 0
@@ -47,7 +47,7 @@ class DualShot(Plant):
     def __init__(self, pos):
         super().__init__(pos)
         self.pos = pos
-        self.imgList = [pygame.transform.scale(pygame.image.load(dualshotRight),(90,90)),pygame.transform.scale(pygame.image.load(dualshotDown),(90,90)),pygame.transform.scale(pygame.image.load(dualshotLeft),(90,90)),pygame.transform.scale(pygame.image.load(dualshotUp),(90,90))]
+        self.imgList = [dualshotRightIMG, dualshotDownIMG ,dualshotLeftIMG ,dualshotUpIMG]
         self.listDirectionVectors = [v2(1,0),v2(0,1),v2(-1,0),v2(0,-1)]
         self.image = self.imgList[0]
         self.numberOfTimesClicked = 0
@@ -65,7 +65,7 @@ class DualShot(Plant):
 class Farm(Plant):
     def __init__(self, pos):
         super().__init__(pos)
-        self.imgList = [pygame.transform.scale(pygame.image.load(farmImage),(90,90)),pygame.transform.scale(pygame.image.load(farmImage),(90,90)),pygame.transform.scale(pygame.image.load(farmImage),(90,90)),pygame.transform.scale(pygame.image.load(farmImage),(90,90))]
+        self.imgList = [farmImageIMG, farmImageIMG, farmImageIMG, farmImageIMG]
         self.listDirectionVectors = [v2(1,0),v2(0,1),v2(-1,0),v2(0,-1)]
         self.image = self.imgList[0]
         self.numberOfTimesClicked = 0

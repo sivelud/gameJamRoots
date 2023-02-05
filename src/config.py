@@ -18,24 +18,50 @@ pygame.display.set_caption("Plants against Zombies")
 bg = (0, 255, 255)
 font = pygame.font.Font("freesansbold.ttf", 30)
 
+# Peashooter
 peashooterRight = "src/media/peashooterR.png"
-peashooterLeft = "src/media/peashooterL.png"
-peashooterUp = "src/media/peashooterU.png"
-peashooterDown = "src/media/peashooterD.png"
-peashooterShop = "src/media/peashooterShop.png"
+peashooterRightIMG = pygame.transform.scale(pygame.image.load(peashooterRight),(90,90))
 
+peashooterLeft = "src/media/peashooterL.png"
+peashooterLeftIMG = pygame.transform.scale(pygame.image.load(peashooterLeft),(90,90))
+
+peashooterUp = "src/media/peashooterU.png"
+peashooterUpIMG = pygame.transform.scale(pygame.image.load(peashooterUp),(90,90))
+
+peashooterDown = "src/media/peashooterD.png"
+peashooterDownIMG = pygame.transform.scale(pygame.image.load(peashooterDown),(90,90))
+
+peashooterShop = "src/media/peashooterShop.png"
+peashooterShopIMG = pygame.transform.scale(pygame.image.load(peashooterShop),(90,90))
+
+# Dualshot
 dualshotRight = "src/media/dualshotR.png"
+dualshotRightIMG = pygame.transform.scale(pygame.image.load(dualshotRight),(90,90))
+
 dualshotLeft = "src/media/dualshotL.png"
+dualshotLeftIMG = pygame.transform.scale(pygame.image.load(dualshotLeft),(90,90))
+
 dualshotUp = "src/media/dualshotU.png"
+dualshotUpIMG = pygame.transform.scale(pygame.image.load(dualshotUp),(90,90))
+
 dualshotDown = "src/media/dualshotD.png"
+dualshotDownIMG = pygame.transform.scale(pygame.image.load(dualshotDown),(90,90))
+
 dualshotShop = "src/media/dualshotShop.png"
+dualshotShopIMG = pygame.transform.scale(pygame.image.load(dualshotShop),(90,90))
+
+# Farm
+farmImage = "src/media/farm.png"
+farmImageIMG = pygame.transform.scale(pygame.image.load(farmImage),(90,90))
+
+# Enemy
 
 enemyRight = "src/media/zombieR.png"
 enemyLeft = "src/media/zombieL.png"
 enemyUp = "src/media/zombieU.png"
 enemyDown = "src/media/zombieD.png"
 
-farmImage = "src/media/farm.png"
+
 
 sellImage = "src/media/sell.png"
 
