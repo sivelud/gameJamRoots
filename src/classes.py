@@ -130,16 +130,19 @@ class Fly(Parent):
         self.rect.center = [pos.x, pos.y]
         self.pos = pos
         self.endpos = endpos
-        self.dir = endpos - pos
-        self.dir.normalize_ip()
+        self.acc = endpos - pos
+        self.acc.normalize_ip()
         self.timeStationary = 0
+        self.dir = v2(0.5,0)
     
     def move(self):
         if ((self.pos.x > self.endpos.x +20 and self.pos.x < self.endpos.x + 50)) and ((self.pos.y > self.endpos.y +20 and self.pos.y < self.endpos.y + 50)):
             self.timeStationary +=1
             
         else:
-            self.pos += self.dir
+            self.acc = self.endpos + v2(45,45) - self.pos
+            self.acc.normalize_ip()
+            self.pos = + self.pos + + self.acc +self.dir
             self.rect.center = [self.pos.x, self.pos.y]
 
     def update(self):
@@ -328,9 +331,10 @@ class GameBoard():
             if self.mapTiles[key][0] != None:
                 sellprice = int(self.mapTiles[key][0].cost/2)
                 cn.money += sellprice
+                
                 self.mapTiles[key][0].kill()
                 self.mapTiles[key][0] = None
-            
+                           
 
         
         if self.mouseHolding == "farm":
@@ -415,8 +419,11 @@ class GameBoard():
 
     def removePlantFly(self):
         (x,y) = self.flyPlant.x, self.flyPlant.y
-        self.mapTiles[coordinates_to_key((x,y))][0].kill()
-        self.mapTiles[coordinates_to_key((x,y))][0] = None
+        try:
+            self.mapTiles[coordinates_to_key((x,y))][0].kill()
+            self.mapTiles[coordinates_to_key((x,y))][0] = None
+        except AttributeError:
+            pass
 
     def chooseFlySpawn(self):
         keyList = ['a4','a3','a2','a1','b4','b3','b2','b1','c4','c3','c2','c1','d4','d3','d2','d1']
