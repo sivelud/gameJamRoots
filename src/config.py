@@ -106,7 +106,7 @@ shopOffset = 3
 shopitemY = 40
 
 peashooterCost = 10
-farmCost = 50
+farmCost = 20
 dualshotCost = 25
 
 font = pygame.font.Font("freesansbold.ttf", 30)
@@ -117,7 +117,7 @@ moneyPlacement = (850, 50)
 startHealth = 1
 health  = startHealth
 
-money = 250
+money = 25
 
 
 possibleSpawn = {

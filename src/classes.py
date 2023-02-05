@@ -278,7 +278,6 @@ class GameBoard():
 
 
         if self.mapTiles[tile] != None:
-            print(tile)
             if self.mapTiles[tile][0] != None:
                 checker = self.mapTiles[tile][0].clicked() # Shop tiles return 1, grid items return None
                 if checker != None:
@@ -385,17 +384,25 @@ class GameBoard():
                     rint = r.randint(0,3)
                     self.lastSpawn = rint
 
-                if (spawn - self.level*0.1 < 10) and len(plants) != 0 and len(flyGroup) == 0:
+                if (r.uniform(0,10) - self.level*0.1 < 0.5) and len(plants) != 0 and len(flyGroup) == 0 and self.level > 4:
                     self.flyPlant = self.chooseFlySpawn()
                     flyGroup.add(Fly(v2(910,910), self.flyPlant))
+                    if self.level > 10:
+                        flyGroup.add(Fly(v2(910,910), self.flyPlant))
                     self.flySpawned = True
                 elif len(flyGroup) == 0:
-                    print(False)
                     self.flySpawned = False
                 if spawn - self.level*0.1 < 0.5:   
-                    print("best enemy")
-                    enemies.add(EnemyBest(copy.copy(possibleSpawn[rint][r.randint(0,3)]), rint))
-                    self.numOfEnemies += 1
+                    if self.level > 10:
+                        if r.uniform(0,1) > 0.5 - self.level*0.1 :
+                            print("super enemy")
+                            enemies.add(SuperEnemy(copy.copy(possibleSpawn[rint][r.randint(0,3)]), rint))
+                            self.numOfEnemies += 1           
+                    else:
+                        print("best enemy")
+                        enemies.add(EnemyBest(copy.copy(possibleSpawn[rint][r.randint(0,3)]), rint))
+                        self.numOfEnemies += 1
+
 
                 elif spawn - self.level*0.1 < 1:
                     print("better enemy")
@@ -412,7 +419,6 @@ class GameBoard():
             self.numOfEnemies = 0
             self.lastSpawn = r.randint(0,3)
         if self.flySpawned and len(flyGroup) == 0:
-            print("here")
             self.removePlantFly()
             self.flySpawned = False
             print(self.level)
@@ -479,11 +485,7 @@ class Enemy(Parent):
     def enemyCrossedLanes(self):
         
         if self.pos.x > 975 or self.pos.x < -25 or self.pos.y > 950 or self.pos.y < -25:
-
             cn.health -= 1
-
-            #print("in func:", health)
-
             self.kill()
 
 class EnemyBetter(Enemy):
@@ -504,7 +506,7 @@ class EnemyBest(Enemy):
     def __init__(self, pos, dire):
         super().__init__(pos, dire)
         self.health = 10
-        self.moneyPerKill = 10
+        self.moneyPerKill = 7
 
     def collision(self):
         for _ in shots:
@@ -513,6 +515,15 @@ class EnemyBest(Enemy):
         if self.health <= 0:
             cn.money += self.moneyPerKill
             self.kill()
+
+class SuperEnemy(Enemy):
+    def __init__(self, pos, dire):
+        super().__init__(pos, dire)
+        self.listDirectionVectors = [v2(1,0),v2(0,1),v2(-1,0),v2(0,-1)]
+        self.health = 10
+
+
+
 
 class cursorImageClass(Parent):
     def __init__(self):
