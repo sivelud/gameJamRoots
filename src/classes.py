@@ -122,6 +122,31 @@ class Projectile(Parent):
         if self.life > 115:
             self.kill()
 
+class Fly(Parent):
+    def __init__(self, pos, endpos):
+        super().__init__()
+        self.image = pygame.image.load(projectile_img)
+        self.rect = self.image.get_rect()
+        self.rect.center = [pos.x, pos.y]
+        self.pos = pos
+        self.endpos = endpos
+        self.dir = endpos - pos
+        self.dir.normalize_ip()
+        self.timeStationary = 0
+    
+    def move(self):
+        if ((self.pos.x > self.endpos.x +20 and self.pos.x < self.endpos.x + 50)) and ((self.pos.y > self.endpos.y +20 and self.pos.y < self.endpos.y + 50)):
+            self.timeStationary +=1
+            
+        else:
+            self.pos += self.dir
+            self.rect.center = [self.pos.x, self.pos.y]
+
+    def update(self):
+        self.move()
+        if self.timeStationary >=75:
+            self.kill()
+    
 
 def shopitemplacement(nr):
             return (shopitemsize*nr + shopOffset*nr)-30
@@ -224,11 +249,13 @@ class GameBoard():
         self.level = 0
         self.numOfEnemies = 0
         self.enemiesToBeSpawned = 0
-        plants.add(self.mapTiles["peashooter"][0])
-        plants.add(self.mapTiles["dualshot"][0])
-        plants.add(self.mapTiles["farm"][0])
+        shopGroup.add(self.mapTiles["peashooter"][0])
+        shopGroup.add(self.mapTiles["dualshot"][0])
+        shopGroup.add(self.mapTiles["farm"][0])
         self.lastSpawn = 0
-        plants.add(self.mapTiles["sell"][0])
+        shopGroup.add(self.mapTiles["spade"][0])
+        self.flyPlant = False
+        self.flySpawned = False
 
     def click_tile(self, mousePosClick):
         tile = coordinates_to_key(mousePosClick)
@@ -354,9 +381,15 @@ class GameBoard():
                     rint = r.randint(0,3)
                     self.lastSpawn = rint
 
+                if (spawn - self.level*0.1 < 10) and len(plants) != 0 and len(flyGroup) == 0:
+                    self.flyPlant = self.chooseFlySpawn()
+                    flyGroup.add(Fly(v2(0,0), self.flyPlant))
+                    self.flySpawned = True
+                elif len(flyGroup) == 0:
+                    print(False)
+                    self.flySpawned = False
                 if spawn - self.level*0.1 < 0.5:   
                     print("best enemy")
-                    
                     enemies.add(EnemyBest(copy.copy(possibleSpawn[rint][r.randint(0,3)]), rint))
                     self.numOfEnemies += 1
 
@@ -374,7 +407,24 @@ class GameBoard():
             self.enemiesToBeSpawned = round(self.level**(1.5))
             self.numOfEnemies = 0
             self.lastSpawn = r.randint(0,3)
+        if self.flySpawned and len(flyGroup) == 0:
+            print("here")
+            self.removePlantFly()
+            self.flySpawned = False
             print(self.level)
+
+    def removePlantFly(self):
+        (x,y) = self.flyPlant.x, self.flyPlant.y
+        self.mapTiles[coordinates_to_key((x,y))][0].kill()
+        self.mapTiles[coordinates_to_key((x,y))][0] = None
+
+    def chooseFlySpawn(self):
+        keyList = ['a4','a3','a2','a1','b4','b3','b2','b1','c4','c3','c2','c1','d4','d3','d2','d1']
+        r.shuffle(keyList)
+        for key in keyList:
+            if self.mapTiles[key][0] != None:
+                return v2(self.mapTiles[key][1])
+        
 
 
 class Enemy(Parent):
