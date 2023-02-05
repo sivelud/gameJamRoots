@@ -8,7 +8,7 @@ pygame.init()
 """
 * Screen
 """
-screen_w = 950             # default=1200
+screen_w = 900             # default=1200
 screen_h = 900              # default=700
 program_speed = 60          # default=30
 screen = pygame.display.set_mode((screen_w, screen_h))
@@ -41,6 +41,14 @@ sellImage = "src/media/sell.png"
 
 projectile_img = "src/media/shot_grey_small.png"
 
+title_screen1 = "src/media/plant_shooter_GTA_Titlescreen.png"
+title_screen = pygame.transform.scale(pygame.image.load(title_screen1),(screen_w,screen_h))
+
+backgroundImage1 = "src/media/board.png"
+backgroundImage = pygame.transform.scale(pygame.image.load(backgroundImage1),(screen_w,screen_h))
+
+
+
 enemies = pygame.sprite.Group()
 plants = pygame.sprite.Group()
 shots = pygame.sprite.Group()
@@ -60,7 +68,8 @@ game_over_font = pygame.font.Font("freesansbold.ttf", 90)
 moneyPlacement = (850, 50)
 
 
-health  = 1
+startHealth = 1
+health  = startHealth
 
 money = 250
 

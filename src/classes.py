@@ -185,7 +185,7 @@ def coordinates_to_key(pos):
         if shopitemplacement(3) <= x < shopitemplacement(3)+shopitemsize:
             key = "farm"
         if shopitemplacement(4) <= x < shopitemplacement(4)+shopitemsize:
-            key = "spade"
+            key = "sell"
 
 
 
@@ -219,7 +219,7 @@ class GameBoard():
             "peashooter":[ShopItem(v2(shopitemplacement(1), shopitemY), pygame.transform.scale(pygame.image.load(peashooterShop),(shopitemsize,shopitemsize)))],
             "dualshot":[ShopItem(v2(shopitemplacement(2), shopitemY), pygame.transform.scale(pygame.image.load(dualshotShop),(shopitemsize,shopitemsize)))],
             "farm":[ShopItem(v2(shopitemplacement(3), shopitemY), pygame.transform.scale(pygame.image.load(farmImage),(shopitemsize,shopitemsize)))],
-            "spade":[ShopItem(v2(shopitemplacement(4), shopitemY), pygame.transform.scale(pygame.image.load(sellImage),(shopitemsize,shopitemsize)))]
+            "sell":[ShopItem(v2(shopitemplacement(4), shopitemY), pygame.transform.scale(pygame.image.load(sellImage),(shopitemsize,shopitemsize)))]
         }
         self.level = 0
         self.numOfEnemies = 0
@@ -228,7 +228,7 @@ class GameBoard():
         plants.add(self.mapTiles["dualshot"][0])
         plants.add(self.mapTiles["farm"][0])
         self.lastSpawn = 0
-        plants.add(self.mapTiles["spade"][0])
+        plants.add(self.mapTiles["sell"][0])
 
     def click_tile(self, mousePosClick):
         tile = coordinates_to_key(mousePosClick)
@@ -261,7 +261,7 @@ class GameBoard():
                     elif tile == "farm":
                         if cn.money >= cn.farmCost:
                             self.mouseHolding = tile
-                    elif tile == "spade":
+                    elif tile == "sell":
                         self.mouseHolding = tile
         
     def placePlant(self, key):
@@ -297,7 +297,7 @@ class GameBoard():
             plants.add(plant)
             cn.money = cn.money - dualshotCost
 
-        if self.mouseHolding == "spade":
+        if self.mouseHolding == "sell":
             if self.mapTiles[key][0] != None:
                 sellprice = int(self.mapTiles[key][0].cost/2)
                 cn.money += sellprice
@@ -325,7 +325,7 @@ class GameBoard():
                 self.cursorImage.updateImage(dualshotRight)
             if self.mouseHolding == "farm":
                 self.cursorImage.updateImage(farmImage)
-            if self.mouseHolding == "spade":
+            if self.mouseHolding == "sell":
                 self.cursorImage.updateImage(sellImage)
             x,y = pygame.mouse.get_pos()
             #cursorImage = cursorImageClass()
