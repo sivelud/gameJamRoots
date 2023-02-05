@@ -60,7 +60,7 @@ moneyPlacement = (850, 50)
 
 health  = 1
 
-money = 25
+money = 250
 
 
 possibleSpawn = {

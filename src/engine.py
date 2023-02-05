@@ -79,11 +79,7 @@ def engine():
                 sprites.update()
                 sprites.draw(screen)
             
-            print("shots:", len(shots))
-            print("enemies:", len(enemies))
-
             board.writeMoney()
-
 
             # Writes score and score nr
             # Draws all the above on to the screen

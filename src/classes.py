@@ -118,7 +118,7 @@ class Projectile(Parent):
 
     def execute(self):
         self.life +=1
-        if self.life > 65:
+        if self.life > 115:
             self.kill()
 
 
@@ -223,6 +223,7 @@ class GameBoard():
         plants.add(self.mapTiles["peashooter"][0])
         plants.add(self.mapTiles["dualshot"][0])
         plants.add(self.mapTiles["farm"][0])
+        self.lastSpawn = 0
 
     def click_tile(self, mousePosClick):
         tile = coordinates_to_key(mousePosClick)
@@ -327,21 +328,24 @@ class GameBoard():
 
     def enemySpawns(self):
         if self.numOfEnemies < self.enemiesToBeSpawned:
-            if r.uniform(0,1) > 0.8:
+            if r.uniform(0,1) > 0.4:
                 spawn = r.uniform(0,10)
+                rint = self.lastSpawn
+                if r.uniform(0,10) > self.level*1.2:
+                    rint = r.randint(0,3)
+                    self.lastSpawn = rint
+
                 if spawn - self.level*0.1 < 0.5:   
                     print("best enemy")
-                    rint = r.randint(0,3)
+                    
                     enemies.add(EnemyBest(copy.copy(possibleSpawn[rint][r.randint(0,3)]), rint))
                     self.numOfEnemies += 1
 
                 elif spawn - self.level*0.1 < 1:
                     print("better enemy")
-                    rint = r.randint(0,3)
                     enemies.add(EnemyBetter(copy.copy(possibleSpawn[rint][r.randint(0,3)]), rint))
                     self.numOfEnemies += 1
                 else:
-                    rint = r.randint(0,3)
                     enemies.add(Enemy(copy.copy(possibleSpawn[rint][r.randint(0,3)]), rint))
                     self.numOfEnemies += 1
 
@@ -350,6 +354,7 @@ class GameBoard():
             self.level +=1
             self.enemiesToBeSpawned = round(self.level**(1.5))
             self.numOfEnemies = 0
+            self.lastSpawn = r.randint(0,3)
             print(self.level)
 
 
