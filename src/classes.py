@@ -327,7 +327,7 @@ class GameBoard():
     def enemySpawns(self):
         if self.numOfEnemies < self.enemiesToBeSpawned:
             if r.uniform(0,1) > 0.8:
-                if r.uniform(0,10) - self.level*0.1 > 0.5:   
+                if r.uniform(0,10) - self.level*0.1 < 0.5:   
                     print("best enemy")
                     rint = r.randint(0,3)
                     enemies.add(EnemyBest(copy.copy(possibleSpawn[rint][r.randint(0,3)]), rint))
@@ -357,6 +357,7 @@ class Enemy(Parent):
         self.rect = self.image.get_rect()
         self.rect.center = [self.pos.x, self.pos.y]
         self.health = 3
+        self.moneyPerKill = 2
     
     def move(self):
         self.pos += self.listDirectionVectors[self.dire] 
@@ -372,7 +373,7 @@ class Enemy(Parent):
             if pygame.sprite.spritecollide(self, shots, True):
                 self.health -= 1
         if self.health <= 0:
-            cn.money += cn.money_per_kill
+            cn.money += self.moneyPerKill
             self.kill()
         
     def enemyCrossedLanes(self):
@@ -388,13 +389,31 @@ class Enemy(Parent):
 class EnemyBetter(Enemy):
     def __init__(self, pos, dire):
         super().__init__(pos, dire)
-        self.health = 5
+        self.health = 10
+        self.moneyPerKill = 5
+
+    def collision(self):
+        for _ in shots:
+            if pygame.sprite.spritecollide(self, shots, True):
+                self.health -= 1
+        if self.health <= 0:
+            cn.money += self.moneyPerKill
+            self.kill()
 
 class EnemyBest(Enemy):
     def __init__(self, pos, dire):
         super().__init__(pos, dire)
         self.health = 10
-    
+        self.moneyPerKill = 10
+
+    def collision(self):
+        for _ in shots:
+            if pygame.sprite.spritecollide(self, shots, True):
+                self.health -= 1
+        if self.health <= 0:
+            cn.money += self.moneyPerKill
+            self.kill()
+
 class cursorImageClass(Parent):
     def __init__(self):
         super().__init__()

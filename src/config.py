@@ -60,9 +60,7 @@ moneyPlacement = (850, 50)
 
 health  = 1
 
-money_per_kill = 2
-
-money = 15
+money = 25
 
 
 possibleSpawn = {
