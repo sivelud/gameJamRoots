@@ -78,9 +78,6 @@ zombieLeftWalkLoop = [zombieSourceImage1IMG, zombieSourceImage2IMG, zombieSource
 zombieRightWalkLoop = [zombieRightIMG1, zombieRightIMG2, zombieRightIMG3, zombieRightIMG4]
 
 
-
-
-
 sellImage = "src/media/sell.png"
 
 projectile_img = "src/media/shot_grey_small.png"
