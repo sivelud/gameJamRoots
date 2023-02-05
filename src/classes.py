@@ -253,7 +253,7 @@ class GameBoard():
         shopGroup.add(self.mapTiles["dualshot"][0])
         shopGroup.add(self.mapTiles["farm"][0])
         self.lastSpawn = 0
-        shopGroup.add(self.mapTiles["spade"][0])
+        shopGroup.add(self.mapTiles["sell"][0])
         self.flyPlant = False
         self.flySpawned = False
 
