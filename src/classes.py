@@ -116,6 +116,7 @@ class Projectile(Parent):
         self.execute()
 
     def execute(self):
+        self.life +=1
         if self.life > 65:
             self.kill()
 
