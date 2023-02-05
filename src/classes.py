@@ -388,6 +388,31 @@ class GameBoard():
         textRect1.center = (moneyPlacement)
         screen.blit(money_txt, textRect1)
 
+    def writeShopPrice(self):
+        yPlace = shopitemY + 80
+        pea_price = str(cn.peashooterCost)
+        dual_price = str(cn.dualshotCost)
+        farm_price = str(cn.farmCost)
+        
+
+
+        pea_txt = font.render(pea_price, True, (250, 180, 0))
+        textRect1 = pea_txt.get_rect()
+        textRect1.center = (shopitemplacement(1) + 30, yPlace)
+        screen.blit(pea_txt, textRect1)
+
+        dual_txt = font.render(dual_price, True, (250, 180, 0))
+        textRect1 = dual_txt.get_rect()
+        textRect1.center = (shopitemplacement(2) + 30, yPlace)
+        screen.blit(dual_txt, textRect1)
+
+        farm_txt = font.render(farm_price, True, (250, 180, 0))
+        textRect1 = farm_txt.get_rect()
+        textRect1.center = (shopitemplacement(3) + 30, yPlace)
+        screen.blit(farm_txt, textRect1)
+
+        
+
     def writeLevel(self):
         txt = "LEVEL: "
         txt += str(self.level)

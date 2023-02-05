@@ -134,8 +134,8 @@ shopOffset = 3
 shopitemY = 40
 
 peashooterCost = 10
-farmCost = 50
-dualshotCost = 25
+farmCost = 15
+dualshotCost = 40
 
 font = pygame.font.Font("freesansbold.ttf", 30)
 game_over_font = pygame.font.Font("freesansbold.ttf", 90)
