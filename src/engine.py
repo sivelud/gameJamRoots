@@ -79,6 +79,7 @@ def engine():
                 sprites.update()
                 sprites.draw(screen)
             
+
             board.writeMoney()
 
             # Writes score and score nr

@@ -37,6 +37,8 @@ enemyDown = "src/media/zombieD.png"
 
 farmImage = "src/media/farm.png"
 
+sellImage = "src/media/sell.png"
+
 projectile_img = "src/media/shot_grey_small.png"
 
 enemies = pygame.sprite.Group()
@@ -45,7 +47,7 @@ shots = pygame.sprite.Group()
 cursorGroup = pygame.sprite.Group()
 
 
-shopitemsize = 70
+shopitemsize = 60
 shopOffset = 3
 shopitemY = 40
 

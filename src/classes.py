@@ -40,7 +40,7 @@ class Plant(Parent):
 class Peashooter(Plant):
     def __init__(self, pos):
         super().__init__(pos)
-        self.cost = 10
+        self.cost = cn.peashooterCost
         self.name = "peashooter"
 
 class DualShot(Plant):
@@ -54,7 +54,7 @@ class DualShot(Plant):
         self.rect = self.image.get_rect()
         self.rect.topleft = [self.pos.x, self.pos.y]
         self.updatesSinceShot = 0
-        self.cost = 25
+        self.cost = cn.dualshotCost
         self.name = "dualshot"
 
     def shoot(self):
@@ -72,6 +72,7 @@ class Farm(Plant):
         self.rect = self.image.get_rect()
         self.rect.topleft = [self.pos.x, self.pos.y]
         self.shotsCounter = 0
+        self.cost = cn.farmCost
         self.name = "farm"
 
 
@@ -183,6 +184,8 @@ def coordinates_to_key(pos):
             key = "dualshot"
         if shopitemplacement(3) <= x < shopitemplacement(3)+shopitemsize:
             key = "farm"
+        if shopitemplacement(4) <= x < shopitemplacement(4)+shopitemsize:
+            key = "spade"
 
 
 
@@ -216,6 +219,7 @@ class GameBoard():
             "peashooter":[ShopItem(v2(shopitemplacement(1), shopitemY), pygame.transform.scale(pygame.image.load(peashooterShop),(shopitemsize,shopitemsize)))],
             "dualshot":[ShopItem(v2(shopitemplacement(2), shopitemY), pygame.transform.scale(pygame.image.load(dualshotShop),(shopitemsize,shopitemsize)))],
             "farm":[ShopItem(v2(shopitemplacement(3), shopitemY), pygame.transform.scale(pygame.image.load(farmImage),(shopitemsize,shopitemsize)))],
+            "spade":[ShopItem(v2(shopitemplacement(4), shopitemY), pygame.transform.scale(pygame.image.load(sellImage),(shopitemsize,shopitemsize)))]
         }
         self.level = 0
         self.numOfEnemies = 0
@@ -224,6 +228,7 @@ class GameBoard():
         plants.add(self.mapTiles["dualshot"][0])
         plants.add(self.mapTiles["farm"][0])
         self.lastSpawn = 0
+        plants.add(self.mapTiles["spade"][0])
 
     def click_tile(self, mousePosClick):
         tile = coordinates_to_key(mousePosClick)
@@ -256,6 +261,8 @@ class GameBoard():
                     elif tile == "farm":
                         if cn.money >= cn.farmCost:
                             self.mouseHolding = tile
+                    elif tile == "spade":
+                        self.mouseHolding = tile
         
     def placePlant(self, key):
         pos = self.mapTiles[key][1]
@@ -278,6 +285,7 @@ class GameBoard():
             self.mapTiles[key][0] = plant
             plants.add(plant)
             cn.money = cn.money - peashooterCost
+
         if self.mouseHolding == "dualshot":
             if cn.money < dualshotCost:
                 self.mouseHolding = None
@@ -288,6 +296,15 @@ class GameBoard():
             self.mapTiles[key][0] = plant
             plants.add(plant)
             cn.money = cn.money - dualshotCost
+
+        if self.mouseHolding == "spade":
+            if self.mapTiles[key][0] != None:
+                sellprice = int(self.mapTiles[key][0].cost/2)
+                cn.money += sellprice
+                self.mapTiles[key][0].kill()
+                self.mapTiles[key][0] = None
+            
+
         
         if self.mouseHolding == "farm":
             if cn.money < farmCost:
@@ -308,6 +325,8 @@ class GameBoard():
                 self.cursorImage.updateImage(dualshotRight)
             if self.mouseHolding == "farm":
                 self.cursorImage.updateImage(farmImage)
+            if self.mouseHolding == "spade":
+                self.cursorImage.updateImage(sellImage)
             x,y = pygame.mouse.get_pos()
             #cursorImage = cursorImageClass()
             self.cursorImage.rect = self.cursorImage.image.get_rect()
