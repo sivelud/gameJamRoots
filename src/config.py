@@ -18,48 +18,61 @@ pygame.display.set_caption("Plants against Zombies")
 bg = (0, 255, 255)
 font = pygame.font.Font("freesansbold.ttf", 30)
 
+
+shopitemsize = 60
+shopOffset = 3
+shopitemY = 40
+
+peashooterCost = 10
+farmCost = 50
+dualshotCost = 25
+
 # Peashooter
-peashooterRight = "src/media/peashooterR.png"
+peashooterRight = "src/media/singleRight.png"
 peashooterRightIMG = pygame.transform.scale(pygame.image.load(peashooterRight),(90,90))
 
-peashooterLeft = "src/media/peashooterL.png"
-peashooterLeftIMG = pygame.transform.scale(pygame.image.load(peashooterLeft),(90,90))
+peashooterLeftIMG = pygame.transform.flip(peashooterRightIMG, True, False)
 
-peashooterUp = "src/media/peashooterU.png"
+peashooterUp = "src/media/singleUp.png"
 peashooterUpIMG = pygame.transform.scale(pygame.image.load(peashooterUp),(90,90))
 
-peashooterDown = "src/media/peashooterD.png"
+peashooterDown = "src/media/singleDown.png"
 peashooterDownIMG = pygame.transform.scale(pygame.image.load(peashooterDown),(90,90))
 
-peashooterShop = "src/media/peashooterShop.png"
-peashooterShopIMG = pygame.transform.scale(pygame.image.load(peashooterShop),(90,90))
+peashooterShopIMG = pygame.transform.scale(pygame.image.load(peashooterRight),(shopitemsize,shopitemsize))
 
 # Dualshot
-dualshotRight = "src/media/dualshotR.png"
+dualshotRight = "src/media/doubleshooterSides.png"
 dualshotRightIMG = pygame.transform.scale(pygame.image.load(dualshotRight),(90,90))
 
-dualshotLeft = "src/media/dualshotL.png"
-dualshotLeftIMG = pygame.transform.scale(pygame.image.load(dualshotLeft),(90,90))
-
-dualshotUp = "src/media/dualshotU.png"
+dualshotUp = "src/media/doubleshooterUp.png"
 dualshotUpIMG = pygame.transform.scale(pygame.image.load(dualshotUp),(90,90))
 
-dualshotDown = "src/media/dualshotD.png"
-dualshotDownIMG = pygame.transform.scale(pygame.image.load(dualshotDown),(90,90))
+dualshotShopIMG = pygame.transform.scale(pygame.image.load(dualshotRight),(shopitemsize,shopitemsize))
 
-dualshotShop = "src/media/dualshotShop.png"
-dualshotShopIMG = pygame.transform.scale(pygame.image.load(dualshotShop),(90,90))
+
 
 # Farm
 farmImage = "src/media/farm.png"
 farmImageIMG = pygame.transform.scale(pygame.image.load(farmImage),(90,90))
+farmShopIMG = pygame.transform.scale(pygame.image.load(farmImage),(shopitemsize,shopitemsize))
 
-# Enemy
-enemyRight = "src/media/zombieR.png"
-enemyLeft = "src/media/zombieL.png"
-enemyUp = "src/media/zombieU.png"
-enemyDown = "src/media/zombieD.png"
+# Sell
+sellImage = "src/media/sell.png"
+sellImageIMG = pygame.transform.scale(pygame.image.load(sellImage),(shopitemsize,shopitemsize))
 
+# Projectile
+projectile = "src/media/bullet.png"
+projectileIMG = pygame.transform.scale(pygame.image.load(projectile),(25,25))
+
+# Fly
+fly = "src/media/fly.png"
+flyIMG = pygame.transform.scale(pygame.image.load(fly),(25,25))
+
+
+
+
+# Zombie
 zombieSourceImage1 = "src/media/zombie1.png"
 zombieSourceImage1IMG = pygame.transform.scale(pygame.image.load(zombieSourceImage1),(90,90))
 zombieSourceImage2 = "src/media/zombie2.png"
@@ -77,19 +90,16 @@ zombieRightIMG4 = pygame.transform.flip(zombieSourceImage4IMG, True, False)
 zombieLeftWalkLoop = [zombieSourceImage1IMG, zombieSourceImage2IMG, zombieSourceImage3IMG, zombieSourceImage4IMG]
 zombieRightWalkLoop = [zombieRightIMG1, zombieRightIMG2, zombieRightIMG3, zombieRightIMG4]
 
-
-sellImage = "src/media/sell.png"
-
-projectile_img = "src/media/shot_grey_small.png"
-
+# Title screen
 title_screen1 = "src/media/plant_shooter_GTA_Titlescreen.png"
 title_screen = pygame.transform.scale(pygame.image.load(title_screen1),(screen_w,screen_h))
 
+# Background
 backgroundImage1 = "src/media/board.png"
 backgroundImage = pygame.transform.scale(pygame.image.load(backgroundImage1),(screen_w,screen_h))
 
 
-
+# Groups
 enemies = pygame.sprite.Group()
 plants = pygame.sprite.Group()
 shots = pygame.sprite.Group()
@@ -103,7 +113,7 @@ shopOffset = 3
 shopitemY = 40
 
 peashooterCost = 10
-farmCost = 20
+farmCost = 50
 dualshotCost = 25
 
 font = pygame.font.Font("freesansbold.ttf", 30)
@@ -114,8 +124,8 @@ moneyPlacement = (850, 50)
 startHealth = 1
 health  = startHealth
 
-startMoney = 20
-money = startMoney
+startmoney = 250
+money = startmoney
 
 
 possibleSpawn = {
@@ -125,18 +135,3 @@ possibleSpawn = {
     3: [copy.copy(v2(360+45, 900)), copy.copy(v2(270+45, 900)), copy.copy(v2(450+45, 900)), copy.copy(v2(540+45, 900))]
 }
 
-"""
-* Controls
-"""
-# Player 1
-boost_key_p1 = pygame.K_w
-left_key_p1 = pygame.K_a
-right_key_p1 = pygame.K_d
-shoot_key_p1 = pygame.K_SPACE
-# Player 2
-boost_key_p2 = pygame.K_UP
-left_key_p2 = pygame.K_LEFT
-right_key_p2 = pygame.K_RIGHT
-shoot_key_p2 = pygame.K_p
-# Both players
-reset_key = pygame.K_r

@@ -47,7 +47,7 @@ class DualShot(Plant):
     def __init__(self, pos):
         super().__init__(pos)
         self.pos = pos
-        self.imgList = [dualshotRightIMG, dualshotDownIMG ,dualshotLeftIMG ,dualshotUpIMG]
+        self.imgList = [dualshotRightIMG, dualshotUpIMG ,dualshotRightIMG ,dualshotUpIMG]
         self.listDirectionVectors = [v2(1,0),v2(0,1),v2(-1,0),v2(0,-1)]
         self.image = self.imgList[0]
         self.numberOfTimesClicked = 0
@@ -101,7 +101,7 @@ class ShopItem(Parent):
 class Projectile(Parent):
     def __init__(self, pos, dir):
         super().__init__()
-        self.image = pygame.image.load(projectile_img)
+        self.image = projectileIMG
         self.rect = self.image.get_rect()
         self.rect.center = [pos.x, pos.y]
         self.pos = pos
@@ -125,7 +125,7 @@ class Projectile(Parent):
 class Fly(Parent):
     def __init__(self, pos, endpos):
         super().__init__()
-        self.image = pygame.image.load(projectile_img)
+        self.image = flyIMG
         self.rect = self.image.get_rect()
         self.rect.center = [pos.x, pos.y]
         self.pos = pos
@@ -244,10 +244,10 @@ class GameBoard():
             "a1":[None, (270, 540)], "b1":[None, (360, 540)], "c1":[None, (450, 540)], "d1":[None,(540, 540)],
 
             # Shop:
-            "peashooter":[ShopItem(v2(shopitemplacement(1), shopitemY), pygame.transform.scale(pygame.image.load(peashooterShop),(shopitemsize,shopitemsize)))],
-            "dualshot":[ShopItem(v2(shopitemplacement(2), shopitemY), pygame.transform.scale(pygame.image.load(dualshotShop),(shopitemsize,shopitemsize)))],
-            "farm":[ShopItem(v2(shopitemplacement(3), shopitemY), pygame.transform.scale(pygame.image.load(farmImage),(shopitemsize,shopitemsize)))],
-            "sell":[ShopItem(v2(shopitemplacement(4), shopitemY), pygame.transform.scale(pygame.image.load(sellImage),(shopitemsize,shopitemsize)))]
+            "peashooter":[ShopItem(v2(shopitemplacement(1), shopitemY), peashooterShopIMG)],
+            "dualshot":[ShopItem(v2(shopitemplacement(2), shopitemY), dualshotShopIMG)],
+            "farm":[ShopItem(v2(shopitemplacement(3), shopitemY), farmShopIMG)],
+            "sell":[ShopItem(v2(shopitemplacement(4), shopitemY), sellImageIMG)]
         }
         self.level = 0
         self.numOfEnemies = 0
