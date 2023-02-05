@@ -120,7 +120,6 @@ font = pygame.font.Font("freesansbold.ttf", 30)
 game_over_font = pygame.font.Font("freesansbold.ttf", 90)
 moneyPlacement = (850, 50)
 
-
 startHealth = 1
 health  = startHealth
 
