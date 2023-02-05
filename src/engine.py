@@ -75,7 +75,7 @@ def engine():
                 
             board.mouseImage()
 
-            for sprites in [plants, shots, enemies,cursorGroup]:
+            for sprites in [plants, shots, enemies,cursorGroup, shopGroup,flyGroup]:
                 sprites.update()
                 sprites.draw(screen)
             

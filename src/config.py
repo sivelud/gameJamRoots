@@ -45,6 +45,8 @@ enemies = pygame.sprite.Group()
 plants = pygame.sprite.Group()
 shots = pygame.sprite.Group()
 cursorGroup = pygame.sprite.Group()
+shopGroup = pygame.sprite.Group()
+flyGroup = pygame.sprite.Group()
 
 
 shopitemsize = 60
