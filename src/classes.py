@@ -327,12 +327,18 @@ class GameBoard():
     def enemySpawns(self):
         if self.numOfEnemies < self.enemiesToBeSpawned:
             if r.uniform(0,1) > 0.8:
-                if r.uniform(0,10) - self.level*0.1 < 0.5:   
+                spawn = r.uniform(0,10)
+                if spawn - self.level*0.1 < 0.5:   
                     print("best enemy")
                     rint = r.randint(0,3)
                     enemies.add(EnemyBest(copy.copy(possibleSpawn[rint][r.randint(0,3)]), rint))
                     self.numOfEnemies += 1
 
+                elif spawn - self.level*0.1 < 1:
+                    print("better enemy")
+                    rint = r.randint(0,3)
+                    enemies.add(EnemyBetter(copy.copy(possibleSpawn[rint][r.randint(0,3)]), rint))
+                    self.numOfEnemies += 1
                 else:
                     rint = r.randint(0,3)
                     enemies.add(Enemy(copy.copy(possibleSpawn[rint][r.randint(0,3)]), rint))
